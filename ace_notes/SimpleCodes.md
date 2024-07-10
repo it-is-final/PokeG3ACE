@@ -20,7 +20,7 @@ Box  5: * * * * * * * *		[********]
 MOV r1, pc
 LDR r0, [pc, #0x24] ; r0 = 0x301C
 SUB r1, r1, r0 ; r1 - r0 = address of Box 9,27 + 8
-LDR r0, [pc, #0x28] ; r0=agit config commit.gpgsign true
+LDR r0, [pc, #0x28] ; r0=a
 FILL 0x00FF, 2
 STR r0, [r1] ; Sets chars 0-3
 LDR r0, [pc, #0x24] ; r0=b
