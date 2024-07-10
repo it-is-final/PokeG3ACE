@@ -28,7 +28,8 @@ def get_codegen_input(hexcode):
             case 0xFF000000:
                 commands_int = ((command | 0xFFFF0000) if (hexcode_p.peek(0) & 0xFF00 != 0xFF00) 
                                 else command | (next(hexcode_p, 0) << 0x10))
-        gen_output += f'{hex(commands_int)}\n'
+        gen_output += f'{hex(commands_int)}'
+        gen_output += '\n' if hexcode_p.peek(None) is not None else ''
     return gen_output
 
 def get_user_hexcode():
