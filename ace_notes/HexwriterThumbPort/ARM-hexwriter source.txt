@@ -1,0 +1,28 @@
+add r8, pc, #0x8a ; r8 = Box Names - 12
+ldm r8!, {r9, r10, r11} ; all should be 0
+cmp r12, #0x2000000
+sublo r12, pc, #0x66 ; r12 = box slot before
+ldrb r1, [r8, r9] ; r1 = character of box name
+subs r1, r1, #0xb1 ; set r1 to hex position?
+addslo r1, r1, #0x10 ; if r1 is '0' to '9' then add 0x10
+addpl r11, r1, r11, lsl #4 ; r11 = final value if r10 = ones
+ldrmi r11, [r12]
+tst r10, #1 ; is r10 = ones
+strbne r11, [r12], #1 ; write r11
+movne r11, #0 ; reset r11
+cmp r10, #7 ; what is r10?
+addlo r10, r10, #1 ; r10 = ones
+movhs r10, #0
+addhs r9, r9, #1 ; skip if slot is a space
+add r9, r9, #1
+cmp r9, #0x7e ; Reached Box 14 last char?
+submi pc, pc, #0x40 ; if not then return to ldrb r1, [r8, r9]
+bx r0 ; exit when done
+
+
+r1 = gets box name char
+r8 = address of box names
+r9 = offset to add to r8
+r10 = box char num
+r11 = holds final value to be written?
+r12 = address of destination box slot

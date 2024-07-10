@@ -1,0 +1,28 @@
+add r12, pc, #0x46
+mov r8, #0
+ldr r9, [r12, r8]
+add r8, r8, #4
+.BYTE 0x00, 0x00, 0x00, 0xff
+cmp r9, #0
+addne r12, r12, r8
+subne pc, pc, #0x20 ; points to mov r8, #0
+cmp r8, #0x38
+.BYTE 0x00, 0x00, 0x00, 0xff
+sublo pc, pc, #0x28 ; points to ldr r9, [r12, r8]
+ldr r9, [pc, #-2]
+add pc, pc, r9
+
+46C08FE2
+0080A0E3
+08909CE7
+048088E2
+000000FF
+000059E3
+08C08C10
+20F04F12
+380058E3
+000000FF
+28F04F32
+02901FE5
+09F08FE0
+74090000

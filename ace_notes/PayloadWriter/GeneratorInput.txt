@@ -1,0 +1,72 @@
+@@ title = "Title"
+@@ author = "Author"
+@@ exit = null
+
+first_four_bytes = 0
+last_four_bytes = 0
+offset = 0
+
+byte_8 = (last_four_bytes & 0xFF000000)>>24
+byte_7 = (last_four_bytes & 0xFF0000)>>16
+byte_6 = (last_four_bytes & 0xFF00)>>8
+byte_5 = (last_four_bytes & 0xFF)
+byte_4 = (first_four_bytes & 0xFF000000)>>24
+byte_3 = (first_four_bytes & 0xFF0000)>>16
+byte_2 = (first_four_bytes & 0xFF00)>>8
+byte_1 = (first_four_bytes & 0xFF)
+neg = 0x80000000
+
+byte_8_offset= ((0xB6-byte_8) & neg)? ( ((0xB9-byte_8)&neg)?(((0xEE-byte_8)&neg)?(byte_8-0xEE):0):(byte_8-0xB6)):0
+byte_8_base= ((0xB6-byte_8) & neg)? ( ((0xB9-byte_8)&neg)?(((0xEE-byte_8)&neg)?(0xEE):byte_8):(0xB6)):byte_8
+byte_7_offset= ((0xB6-byte_7) & neg)? ( ((0xB9-byte_7)&neg)?(((0xEE-byte_7)&neg)?(byte_7-0xEE):0):(byte_7-0xB6)):0
+byte_7_base= ((0xB6-byte_7) & neg)? ( ((0xB9-byte_7)&neg)?(((0xEE-byte_7)&neg)?(0xEE):byte_7):(0xB6)):byte_7
+
+byte_6_offset= ((0xB6-byte_6) & neg)? ( ((0xB9-byte_6)&neg)?(((0xEE-byte_6)&neg)?(byte_6-0xEE):0):(byte_6-0xB6)):0
+byte_6_base= ((0xB6-byte_6) & neg)? ( ((0xB9-byte_6)&neg)?(((0xEE-byte_6)&neg)?(0xEE):byte_6):(0xB6)):byte_6
+byte_5_offset= ((0xB6-byte_5) & neg)? ( ((0xB9-byte_5)&neg)?(((0xEE-byte_5)&neg)?(byte_5-0xEE):0):(byte_5-0xB6)):0
+byte_5_base= ((0xB6-byte_5) & neg)? ( ((0xB9-byte_5)&neg)?(((0xEE-byte_5)&neg)?(0xEE):byte_5):(0xB6)):byte_5
+
+byte_4_offset= ((0xB6-byte_4) & neg)? ( ((0xB9-byte_4)&neg)?(((0xEE-byte_4)&neg)?(byte_4-0xEE):0):(byte_4-0xB6)):0
+byte_4_base= ((0xB6-byte_4) & neg)? ( ((0xB9-byte_4)&neg)?(((0xEE-byte_4)&neg)?(0xEE):byte_4):(0xB6)):byte_4
+byte_3_offset= ((0xB6-byte_3) & neg)? ( ((0xB9-byte_3)&neg)?(((0xEE-byte_3)&neg)?(byte_3-0xEE):0):(byte_3-0xB6)):0
+byte_3_base= ((0xB6-byte_3) & neg)? ( ((0xB9-byte_3)&neg)?(((0xEE-byte_3)&neg)?(0xEE):byte_3):(0xB6)):byte_3
+
+byte_2_offset= ((0xB6-byte_2) & neg)? ( ((0xB9-byte_2)&neg)?(((0xEE-byte_2)&neg)?(byte_2-0xEE):0):(byte_2-0xB6)):0
+byte_2_base= ((0xB6-byte_2) & neg)? ( ((0xB9-byte_2)&neg)?(((0xEE-byte_2)&neg)?(0xEE):byte_2):(0xB6)):byte_2
+byte_1_offset= ((0xB6-byte_1) & neg)? ( ((0xB9-byte_1)&neg)?(((0xEE-byte_1)&neg)?(byte_1-0xEE):0):(byte_1-0xB6)):0
+byte_1_base= ((0xB6-byte_1) & neg)? ( ((0xB9-byte_1)&neg)?(((0xEE-byte_1)&neg)?(0xEE):byte_1):(0xB6)):byte_1
+
+first_four_bytes_base_data = ((byte_4_base<<24)|(byte_3_base<<16)|(byte_2_base<<8)|byte_1_base)
+first_four_bytes_offset_data = ((byte_4_offset<<24)|(byte_3_offset<<16)|(byte_2_offset<<8)|byte_1_offset)
+
+last_four_bytes_base_data = ((byte_8_base<<24)|(byte_7_base<<16)|(byte_6_base<<8)|byte_5_base)
+last_four_bytes_offset_data = ((byte_8_offset<<24)|(byte_7_offset<<16)|(byte_6_offset<<8)|byte_5_offset)
+
+address ?= (0x2584) - (offset * 8)
+
+@@
+0x48124679
+0xB43C1A09
+0xA00900FF
+0xE000C81C
+0x1912FFFF
+0x195BC839
+0x00FFC10C
+0xBC3C18D0
+0xFFFFE000
+0x6008A10B
+0x3010480C
+0x470000FF
+{first_four_bytes_base_data}
+0x5151FFFF
+{first_four_bytes_offset_data}
+0x51FFFFFF
+{last_four_bytes_base_data}
+0xFFFFFFFF
+{last_four_bytes_offset_data}
+{address}
+0x515151FF
+0xFFFFFFFF
+0x5151FFFF
+0x08085AED
+0x00FFFFFF

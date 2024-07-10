@@ -1,0 +1,9 @@
+; Nickname to fix r7 and CPSR
+; Allows normal code executions to work properly with minimal chance of crashing.
+EOR r7, r7
+ADD r7, r7, #0x1 ; Resets r7 to normal value
+B #0x44
+
+; 407F
+; 1C7F
+; E022

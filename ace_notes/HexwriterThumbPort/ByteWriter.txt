@@ -1,0 +1,38 @@
+PUSH {r0-r5, lr}
+ADD r0, pc, #0xE0
+ADD r5, pc, #0x44
+LDMIA r0!, {r2-r4}
+LDRB r1, [r0, r2]
+STRB r1, [r5]
+ADD r5, r5, #0x1
+CMP r3, #0x7
+BCS #0x6
+ADD r3, r3, #0x1
+B #0x6
+EOR r3, r3
+ADD r2, r2, #0x1
+ADD r2, r2, #0x1
+CMP r2, #0x5A
+BMI #-0xnn
+ADD r1, r1, #0x1
+POP {r0-r5, pc}
+
+; B53F
+; A038
+; A511
+; C81C
+; 5C81
+; 7029
+; 1C6D
+; 2B07
+; E000
+; 0700
+; D201
+; 1C5B
+; E001
+; 405B
+; 1C52
+; 1C52
+; D4F2
+; 1C00
+; BD3F

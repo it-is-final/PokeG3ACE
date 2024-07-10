@@ -1,0 +1,69 @@
+ル ば つ ぶ 	48124679	0x48124679
+け は ざ 」 	B43C1A09	0xB43C1A09
+✖ _ け ッ 	A00900FF	0xA00900FF
+ふ N _ l 	E000C81C	0xE000C81C
+✖ ✖ つ の 	1912FFFF	0x1912FFFF
+ぐ N サ の 	195BC839	0x195BC839
+し G ✖ _ 	00FFC10C	0x00FFC10C
+V ね ざ B 	BC3C18D0	0xBC3C18D0
+_ l ✖ ✖ 	FFFFE000	0xFFFFE000
+さ 0 く タ 	6008A10B	0x6008A10B
+し ぶ た ぃ 	3010480C	0x3010480C
+✖ _ _ び 	470000FF	0x470000FF
+あ あ あ あ 	01010101	0x01010101
+✖ ✖ ア ア 	5151FFFF	0x5151FFFF
+い い い い 	02020202	0x02020202
+✖ ✖ ✖ ア 	51FFFFFF	0x51FFFFFF
+う う う う 	03030303	0x03030303
+✖ ✖ ✖ ✖ 	FFFFFFFF	0xFFFFFFFF
+え え え え 	04040404	0x04040404
+ャ ゆ _ _ 	00002584	0x00002584
+✖ ア ア ア 	515151FF	0x515151FF
+✖ ✖ ✖ ✖ 	FFFFFFFF	0xFFFFFFFF
+✖ ✖ ア ア 	5151FFFF	0x5151FFFF
+y コ く く 	08085AED	0x08085AED
+✖ ✖ ✖ _ 	00FFFFFF	0x00FFFFFF
+
+Box  1: ル ば つ ぶ け は ざ 」	[ルばつぶけはざ」]
+Box  2: _ け ッ ふ N _ l	[ けッふN l]
+Box  3: つ の ぐ N サ の し G	[つのぐNサのしG]
+Box  4: _ V ね ざ B _ l	[ VねざB l]
+Box  5: さ 0 く タ し ぶ た ぃ	[さ0くタしぶたぃ]
+Box  6: _ _ び あ あ あ あ	[  びああああ]
+Box  7: ア ア い い い い	[アアいいいい]
+Box  8: ア う う う う	[アうううう]
+Box  9: え え え え ャ ゆ _ _	[ええええャゆ  ]
+Box 10: ア ア ア	[アアア]
+Box 11: ア ア y コ く く	[アアyコくく]
+Box 12: _ _ _ _ ‥ _ _ _	[    ‥   ]
+
+All commands (with exit code and fillers):
+0x48124679
+0xB43C1A09
+0xA00900FF
+0xE000C81C
+0x1912FFFF
+0x195BC839
+0x00FFC10C
+0xBC3C18D0
+0xFFFFE000
+0x6008A10B
+0x3010480C
+0x470000FF
+0x01010101
+0x5151FFFF
+0x02020202
+0x51FFFFFF
+0x03030303
+0xFFFFFFFF
+0x04040404
+0x00002584
+0x515151FF
+0xFFFFFFFF
+0x5151FFFF
+0x08085AED
+0x00FFFFFF
+
+Raw data (in hexadecimal):
+79 46 12 48 09 1A 3C B4 FF 00 09 A0 1C C8 00 E0 FF FF 12 19 39 C8 5B 19 0C C1 FF 00 D0 18 3C BC 00 E0 FF FF 0B A1 08 60 0C 48 10 30 FF 00 00 47 01 01 01 01 FF FF 51 51 02 02 02 02 FF FF FF 51 03 03 03 03 FF FF FF FF 04 04 04 04 84 25 00 00 FF 51 51 51 FF FF FF FF FF FF 51 51 ED 5A 08 08 FF FF FF 00 00 00 00 B0 00 00 00 FF
+

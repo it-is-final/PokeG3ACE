@@ -1,0 +1,11 @@
+MOV r1, pc
+LDR r0, [pc, #nn]
+SUB r1, r1, r0
+ADD r0, pc, #nn
+PUSH {r2-r3}
+LDMIA r0!, {r0, r2, r3}
+B #0x4
+ADD r0, r0, r3
+STR r0, [r1]
+POP {r2-r3}
+BX lr

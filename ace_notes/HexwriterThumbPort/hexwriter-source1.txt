@@ -1,0 +1,76 @@
+PUSH {r1-r7} ; Preserve registers for exit
+ADD r0, pc, #0xE0
+CMP r7, r4 ; Check if r7 is address greater than 0x2020700
+LDMIA r0!, {r2-r4}
+BCS #0x4
+ADD r7, pc, #0x44 ; if not then r7 = next box slot
+LDRB r1, [r0, r2] ; load box character
+SUB r1, #0xB1 ; make box character = nybl representation
+B #0x4 ; Do not touch misc flags!
+BCS #0x4 ; if char is not '0' to '9'
+ADD r1, #0x10 ; Fix hex representation for char '0' to '9'
+BPL #0x4
+LDR r4, [r7] ; Write nothing if char is a space
+BMI #0x6
+LSL r4, r4, #0x4
+ADD r4, r4, r1 ; r4 = hex
+MOV r1, #0x1
+TST r3, r1
+BEQ #0x8 ; only write on even box char!
+STRB r4, [r7]
+ADD r7, r7, #0x1
+EOR r4, r4
+CMP r3, #0x7
+BCS #0x4
+ADD r3, r1 ; Uses ADD(4) in ARM Architecture Reference Manual! Done to avoid carry flag shenanigans
+BCC #0x6
+EOR r3, r3
+ADD r2, r2, #0x1
+ADD r2, r2, #0x1
+CMP r2, #0x7E
+BMI #-0x36 ; Return to LDRB r1, [r0, r2] until all writable box name chars exhausted
+POP {r1-r7}
+ADD r7, r7, #0x1 ; Fixing CPSR
+BX r0
+
+; HEXCODE:
+; B4FE PUSH {r1-r7}
+; A038 ADD r0, pc, #0xE0
+; 42A7 CMP r7, r4
+; C81C LDMIA r0!, {r2-r4}
+; D200 BCS #0x4
+; A711 ADD r7, pc, #0x44
+; 5C81 LDRB r1, [r0, r2]
+; 39B1 SUB r1, #0xB1
+; E000 B #0x4
+; 0700
+; D200 BCS #0x4
+; 3110 ADD r1, #0x10
+; D500 BPL #0x4
+; 683C LDR r4, [r7]
+; D401 BMI #0x6
+; 0124 LSL r4, r4, #0x4
+; 1864 ADD r4, r4, r1
+; 2101 MOV r1, #0x1
+; 420B TST r3, r1
+; D002 BEQ #0x8
+; 703C STRB r4, [r7]
+; 1C7F ADD r7, r7, #0x1
+; 4064 EOR r4, r4
+; 2B07 CMP r3, #0x7
+; D200 BCS #0x4
+; 440B ADD r3, r1
+; D301 BCC #0x6
+; 405B EOR r3, r3
+; 1C52 ADD r2, r2, #0x1
+; 1C52 ADD r2, r2, #0x1
+; 2A7E CMP r2, #0x7E
+; D4E5 BMI #-0x36
+; BCFE POP {r1-r7}
+; 4802 LDR r0, [pc, #0x8]
+; 1C40 ADD r0, r0, #0x1
+; 4700 BX r0
+; 0000
+; 0000
+; 305A
+; 0808
