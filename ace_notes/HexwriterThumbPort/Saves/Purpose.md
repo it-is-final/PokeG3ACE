@@ -1,0 +1,1 @@
+These are some of the saves used to test out the Thumb Hexwriter I have been porting to Thumb. They most likely contain outdated versions. I have been using PokeGlitzer to quickly test the hexwriter out.
