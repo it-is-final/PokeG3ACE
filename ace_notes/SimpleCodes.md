@@ -20,7 +20,7 @@ Box  5: * * * * * * * *		[********]
 MOV r1, pc
 LDR r0, [pc, #0x24] ; r0 = 0x301C
 SUB r1, r1, r0 ; r1 - r0 = address of Box 9,27 + 8
-LDR r0, [pc, #0x28] ; r0=a
+LDR r0, [pc, #0x28] ; r0=agit config commit.gpgsign true
 FILL 0x00FF, 2
 STR r0, [r1] ; Sets chars 0-3
 LDR r0, [pc, #0x24] ; r0=b
@@ -227,4 +227,68 @@ BX LR
 ; FF 00 00 00
 ; 01 00 XX XX
 ; 01 00 XX XX
+```
+
+## Create NOP Bad Egg
+
+```
+Box  1: ル ば さ ぶ け は か ッ	[ルばさぶけはかッ]
+Box  2: _ え 」 お ぼ _ l	[ え」おぼ l]
+Box  3: さ k え B え ぶ ぶ ェ	[さkえBえぶぶェ]
+Box  4: _ か ぶ _ び F ば	[ かぶ びFば]
+Box  5: り _ _ あ _ c _ _	[り  あ c  ]
+Box  6: _ _ _ ャ ゆ _ _ _	[   ャゆ   ]
+Box  7: _ _ ゆ ヲ て く _ _	[  ゆヲてく  ]
+```
+
+```
+MOV r1, pc
+LDR r0, =0x2584 @ pc, #0x2C
+SUB r1, r1, r0 ; r1-r0 = Box 11, Slot 1
+ADD r0, pc, #0x18
+PUSH {r2}
+LDR r2, =0x01000028 @ pc, #0x14 ; Setting up parameters for SWI
+B pc
+SWI #0xB ; Call CpuSet with parameters described in r0, r1, r2
+POP {r2}
+LDR r0, =0xD700 @ pc, #0x10
+STRH r0, [r1, #0x12] ; Replace potentially dangerous 47C0 opcode with D700 in misc/lang flags
+LDR r0, =0x08137D25 @ pc, #0x18
+BX r0 ; Uses certifcate exit to ensure a safe Bad EGG is created (no 50/50 chance of D700 being missing)
+.halfword 0x49C0 ; Informal NOP, means MOV r8, r8
+.word 0x01000028 ; Fill address in r1 with halfword described in r0 for 0x28 words
+.word 0x0000D700 ; BVC pc, safest opcode I can think of that does not corrupt anything
+.word 0x00002584
+.word 0x08137D25
+
+; 4679 MOV r1, pc
+; 480B LDR r0, [pc, #0x2C]
+; 1A09 SUB r1, r1, r0
+; A006 ADD r0, pc, #0x18
+; 00FF
+; B404 PUSH {r2}
+; 4A05 LDR r2, [pc, #0x14]
+; E000 B pc
+; FFFF
+; DF0B SWI #0xB
+; BC04 POP {r2}
+; 4804 LDR r0, [pc, #0x10]
+; 8248 STRH r0, [r1, #0x12]
+; 00FF
+; 4806 LDR r0, [pc, #0x18]
+; 4700 BX r0
+; 46C0
+; FFFF
+; 0028
+; 0100
+; D700
+; 0000
+; 00FF
+; 0000
+; 2584
+; 0000
+; FF00
+; 0000
+; 7D25
+; 0813
 ```
