@@ -15,19 +15,19 @@ def get_codegen_input(hexcode):
     for command, pattern in zip(hexcode_p, cycle(tex_term_pattern)):
         match pattern:
             case 0x0:
-                commands_int = command | ((next(hexcode_p, 0)) << 0x10)
+                commands_int = command | ((next(hexcode_p, 0xFFFF)) << 0x10)
             case 0xFF:
                 commands_int = ((command << 0x10) | 0xFF if (command & 0xFF != 0xFF) 
-                                else command | (next(hexcode_p, 0) << 0x10))
+                                else command | (next(hexcode_p, 0xFFFF) << 0x10))
             case 0xFF00:
                 commands_int = (((command << 0x10) | 0xFFFF) if (command & 0xFF00 != 0xFF00) 
-                                else command | (next(hexcode_p, 0) << 0x10))
+                                else command | (next(hexcode_p, 0xFFFF) << 0x10))
             case 0xFF0000:
-                commands_int = ((command | 0xFF0000) if (hexcode_p.peek(0) & 0xFF != 0xFF) 
-                                else command | (next(hexcode_p, 0) << 0x10))
+                commands_int = ((command | 0xFF0000) if (hexcode_p.peek(0xFFFF) & 0xFF != 0xFF)
+                                else command | (next(hexcode_p, 0xFFFF) << 0x10))
             case 0xFF000000:
-                commands_int = ((command | 0xFFFF0000) if (hexcode_p.peek(0) & 0xFF00 != 0xFF00) 
-                                else command | (next(hexcode_p, 0) << 0x10))
+                commands_int = ((command | 0xFFFF0000) if (hexcode_p.peek(0xFFFF) & 0xFF00 != 0xFF00)
+                                else command | (next(hexcode_p, 0xFFFF) << 0x10))
         gen_output += f'{hex(commands_int)}'
         gen_output += '\n' if hexcode_p.peek(None) is not None else ''
     return gen_output
