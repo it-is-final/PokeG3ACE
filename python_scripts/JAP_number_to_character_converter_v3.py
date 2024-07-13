@@ -2,7 +2,7 @@
 # Convert Numbers to Characters #
 # # # # # # # # # # # # # # # # #
 
-japaneseTable = ("␣","あ","い","う","え","お","か","き","く","け","こ","さ","し","す","せ","そ",
+japanese_char_table = ("␣","あ","い","う","え","お","か","き","く","け","こ","さ","し","す","せ","そ",
                  "た","ち","つ","て","と","な","に","ぬ","ね","の","は","ひ","ふ","へ","ほ","ま",
                  "み","む","め","も","や","ゆ","よ","ら","り","る","れ","ろ","わ","を","ん","ぁ",
                  "ぃ","ぅ","ぇ","ぉ","ゃ","ゅ","ょ","が","ぎ","ぐ","げ","ご","ざ","じ","ず","ぜ",
@@ -32,67 +32,82 @@ def get_characters(byte):
         byte_offset = 0
     return (byte_base, byte_offset)
 
-def get_number_from_array(num_array):
-    num = 0
-    for i in reversed(num_array):
-        num = (num << 8) + i
-    return num
+def get_bit_length():
+    while True:
+        try:
+            bit_length = int(input("Bit length of number: "))
+            if bit_length % 8:
+                raise ValueError(bit_length)
+        except ValueError as err:
+            print(f"{err.args} is not a valid input")
+        else:
+            return bit_length
 
-def get_array_from_number(num, length):
-    output = [num >> (8 * i) & 0xFF for i in range(length // 8)]
-    return output
+def get_hexcode_endianness():
+    while True:
+        try:
+            endianness = input("Endianness of hexadecimal (default is \"big\"): ").strip() or "big"
+            match endianness.lower():
+                case "big":
+                    return "big"
+                case "little":
+                    return "little"
+                case _:
+                    raise ValueError(endianness)
+        except ValueError as err:
+            print(f"{err.args} is not a valid input")
 
-while True:
-    try:
-        wanted_bit_length = int(input("Bit length of number: "))
-        if wanted_bit_length % 8:
-            raise ValueError(wanted_bit_length)
-        break
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+def get_hex_from_input():
+    while True:
+        try:
+            input_value = int(input("Enter a hexadecimal number: "),16)
+        except ValueError as err:
+            print(f"{err.args} is not a valid input")
+        else:
+            return input_value
 
-while True:
-    try:
-        endianness = input("Endianness of hexadecimal: ")
-        match endianness.lower():
-            case "big":
-                little_endian_input = False
-                break
-            case "little":
-                little_endian_input = True
-                break
-            case _:
-                raise ValueError(endianness)
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+def convert_result_to_char(result, char_table, spaces):
+    spacer = ' ' if spaces else ''
+    char_string = spacer.join([char_table[i] for i in reversed(result)])
+    return char_string
 
-while True:
-    try:
-        input_value = int(input("Enter a hexadecimal number: "),16)
-        break
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+result_base = bytearray()
+result_offset = bytearray()
 
-raw_bytes = (list(reversed(get_array_from_number(input_value, wanted_bit_length))) 
-             if little_endian_input else 
-             get_array_from_number(input_value, wanted_bit_length))
+number_length = get_bit_length()
+number = get_hex_from_input()
+endianness = get_hexcode_endianness()
 
-output_base = [(get_characters(i))[0] for i in raw_bytes]
-output_offset = [(get_characters(i))[1] for i in raw_bytes]
+raw_bytes = number.to_bytes(length=(number_length // 8),byteorder=endianness,signed=False)
+
+for i in raw_bytes:
+    result_base.extend(get_characters(i)[0].to_bytes(1,signed=False))
+    result_offset.extend(get_characters(i)[1].to_bytes(1,signed=False))
+
+char_base_1 = convert_result_to_char(result_base, japanese_char_table, spaces=True)
+char_base_2 = convert_result_to_char(result_base, japanese_char_table, spaces=False)
+char_offset_1 = convert_result_to_char(result_offset, japanese_char_table, spaces=True)
+char_offset_2 = convert_result_to_char(result_offset, japanese_char_table, spaces=False)
+
+code_gen_input_base = hex(int.from_bytes(result_base,'big',signed=False))
+code_gen_input_offset = hex(int.from_bytes(result_offset,'big',signed=False))
+
+raw_hex_base = ' '.join('{:02X}'.format(i) for i in reversed(result_base))
+raw_hex_offset = ' '.join('{:02X}'.format(i) for i in reversed(result_offset))
 
 print(f'''\
 Base:\t\
-{' '.join([japaneseTable[i] for i in output_base])}\t\
-({''.join([japaneseTable[i] for i in output_base])})
+{char_base_1}\t\
+({char_base_1})
 Offset:\t\
-{' '.join([japaneseTable[i] for i in output_offset])}\t\
-({''.join([japaneseTable[i] for i in output_offset])})
+{char_offset_1}\t\
+({char_offset_2})
 
 CodeGenerator Input:
-{hex(get_number_from_array(output_base))}
-{hex(get_number_from_array(output_offset))}
+{code_gen_input_base}
+{code_gen_input_offset}
 
 Raw Hex:
-{get_number_from_array(list(reversed(output_base))):0{wanted_bit_length//4}X}
-{get_number_from_array(list(reversed(output_offset))):0{wanted_bit_length//4}X}\
+{raw_hex_base}
+{raw_hex_offset}\
 ''')
