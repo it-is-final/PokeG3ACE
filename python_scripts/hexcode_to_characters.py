@@ -38,44 +38,45 @@ def convert_hexcode(raw_data):
     get_array_from_number(raw_data, wanted_bit_length))
     return output
 
-while True:
-    try:
-        cpu_mode = input("ARM or Thumb? (default is \"Thumb\")").strip() or "Thumb"
-        match cpu_mode.lower():
-            case "arm":
-                wanted_bit_length = 32
-            case "thumb":
-                wanted_bit_length = 16
-            case _:
-                raise ValueError(cpu_mode)
-        break
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+def set_arm_mode_encoding():
+    while True:
+        try:
+            user_input = input("Is the hexcode in ARM or Thumb? ('default is \"Thumb\")").strip() or "Thumb"
+            match user_input.lower():
+                case "arm":
+                    return int(32)
+                case "thumb":
+                    return int(16)
+        except ValueError as err:
+            print(f"{err.args} is not a valid input")
 
-while True:
-    try:
-        endianness = input("Endianness of hexadecimal (default is \"big\"): ").strip() or "big"
-        match endianness.lower():
-            case "big":
-                little_endian_input = False
-                break
-            case "little":
-                little_endian_input = True
-                break
-            case _:
-                raise ValueError(endianness)
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+def get_hexcode_endianness():
+    while True:
+        try:
+            endianness = input("Endianness of hexadecimal (default is \"big\"): ").strip() or "big"
+            match endianness.lower():
+                case "big":
+                    return "big"
+                case "little":
+                    return "little"
+                case _:
+                    raise ValueError(endianness)
+        except ValueError as err:
+            print(f"{err.args} is not a valid input")
 
-while True:
-    try:
-        user_input = input("Enter hexcode (Press enter on empty input when done): ")
-        if user_input:
-            hexcode.append(int(user_input, 16))
-        else:
+def get_user_hexcode():
+    hexcode = []
+    print("Enter hexcode (Press Enter then ^D on Linux/Unix systems or Ctrl-Z on Windows systems)")
+    while True:
+        try:
+            line = int(input(), 16) & 0xFFFF
+        except ValueError as err:
+            print(f"{err.args} is not hexcode, ignoring this line...")
+        except EOFError:
             break
-    except ValueError as err:
-        print(f"{err.args} is not a valid input")
+        else:
+            hexcode.append(line)
+    return hexcode
 
 hex_byte_code = [convert_hexcode(i) for i in hexcode]
 # [[japaneseTable[i] for i in i] for i in hex_byte_code]
