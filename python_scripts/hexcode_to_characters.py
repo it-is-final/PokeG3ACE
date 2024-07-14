@@ -22,12 +22,6 @@ japanese_char_table = ("␣","あ","い","う","え","お","か","き","く","�
                  "l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","✖",
                  "✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖","✖")
 
-def get_number_from_array(num_array):
-    num = 0
-    for i in reversed(num_array):
-        num = (num << 8) + i
-    return num
-
 def set_arm_mode_encoding():
     while True:
         try:
