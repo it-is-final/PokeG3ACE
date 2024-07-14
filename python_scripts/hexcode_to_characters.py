@@ -78,8 +78,12 @@ def get_user_hexcode():
             hexcode.append(line)
     return hexcode
 
-hex_byte_code = [convert_hexcode(i) for i in hexcode]
-# [[japaneseTable[i] for i in i] for i in hex_byte_code]
+bit_length = set_arm_mode_encoding()
+user_hexcode = get_user_hexcode()
+endianness = get_hexcode_endianness()
+
+raw_hex_code = [i.to_bytes(length=bit_length // 8,byteorder=endianness,signed=False)
+                for i in user_hexcode]
 
 char_code = ''
 code_gen_input = ''
