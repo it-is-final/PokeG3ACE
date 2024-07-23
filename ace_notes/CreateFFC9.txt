@@ -1,0 +1,22 @@
+@@ title = "Create 0xFFC9"
+@@ author = "デテロニー"
+
+; Adapted from https://www.youtube.com/watch?v=i9d4AyI2l1A
+; Do not execute with move ACE!
+; Make sure that party slot 3 is empty when executing this code!
+
+@@
+
+MOVS r4, #0x1E00000 ; Not identical to original, was encoded as 0xE3B04778
+ADD r0, pc, #0x8 ; Change to #0x6 for PC-misaligned entrypoints (on console and new emulators)
+0xE8B000FF ; LDMIA r0!, {r0-r7}
+0xE8A2001F ; STMIA r2!, {r0-r4}
+BX lr
+
+%% DATA LOADED AND STORED
+
+0x02010000 ; Lang=JP, IsSpecies=True
+0x51FFFFFF ; Filler
+0x020242BC ; Location of party slot 3
+0xFFFFFFC8 ; Checksum
+0xFFFFFFC9 ; Species and held item
