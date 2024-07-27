@@ -7,8 +7,8 @@
 
 @@
 
-MOVS r4, #0x1E00000 ; Not identical to original, was encoded as 0xE3B04778
-ADD r0, pc, #0x8 ; Change to #0x6 for PC-misaligned entrypoints (on console and new emulators)
+0xE3B04778 ; Filler for ARM, bootstrap for Thumb. Must be this specific encoding
+ADD r0, pc, #0x8 ; Apparently LDMIA works fine without needing adjustments to be word-aligned
 0xE8B000FF ; LDMIA r0!, {r0-r7}
 0xE8A2001F ; STMIA r2!, {r0-r4}
 BX lr
