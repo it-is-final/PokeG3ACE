@@ -1,12 +1,19 @@
 import random
 from enum import Enum
-from typing import Generator
 
 
 class Gender(Enum):
     MALE = 'male'
     FEMALE = 'female'
     UNKNOWN = 'unknown'
+
+
+class ShinySearch(Enum):
+    DONT_CARE = "don't care"
+    ALL_SHINY = "all"
+    SQUARE_ONLY = "square"
+    STAR_ONLY = "star"
+    NON_SHINY = "non shiny"
 
 
 GENDER_THRESHOLDS = {
@@ -30,20 +37,17 @@ NATURES = {
 }
 
 
-def random_pid(tid: int, sid: int, shiny_only: bool, square_only: bool, star_only: bool) -> Generator[int, None, None]:
-    if not shiny_only:
-        threshold_range = (0x0, 0xFFFF)
-    elif square_only:
-        threshold_range = (0, 0)
-    elif star_only:
-        threshold_range = (1, 7)
-    else:
-        threshold_range = (0, 7)
-    while True:
-        pid_upper = random.randint(0x0, 0xFFFF)
-        threshold = random.randint(*threshold_range)
-        pid_lower = tid ^ sid ^ pid_upper ^ threshold
-        yield pid_upper << 16 | pid_lower
+def random_pid(tid: int, sid: int, shiny_search: ShinySearch) -> int:
+    match shiny_search:
+        case ShinySearch.DONT_CARE: threshold_range = (0x0, 0xFFFF)
+        case ShinySearch.ALL_SHINY: threshold_range = (0, 7)
+        case ShinySearch.SQUARE_ONLY: threshold_range = (0, 0)
+        case ShinySearch.STAR_ONLY: threshold_range = (1, 7)
+        case ShinySearch.NON_SHINY: threshold_range = (0x8, 0xFFFF)
+    pid_upper = random.randint(0x0, 0xFFFF)
+    threshold = random.randint(*threshold_range)
+    pid_lower = tid ^ sid ^ pid_upper ^ threshold
+    return pid_upper << 16 | pid_lower
 
 
 def read_nature(pid: int) -> str:
@@ -68,6 +72,24 @@ def read_gender(pid: int, gender_threshold: int) -> Gender:
         return Gender.MALE
     else:
         return Gender.FEMALE
+
+
+def search_pids(
+        tid: int, sid: int,
+        shiny_search: ShinySearch,
+        nature: str, ability: int | None, gender: Gender,
+        gender_ratio: int) -> int:
+    found_pid = False
+    while not found_pid:
+        pid = random_pid(tid, sid, shiny_search)
+        if nature != read_nature(pid) and nature:
+            continue
+        if ability != read_ability(pid) and ability:
+            continue
+        if gender is not read_gender(pid, gender_ratio):
+            continue
+        found_pid = True
+    return pid
 
 
 def id_prompt(prompt: str) -> int:
@@ -140,9 +162,9 @@ def gender_prompt(gender_ratio) -> Gender:
         return Gender.UNKNOWN
     while True:
         wanted_gender = input("Male (M) or Female (F)? ").strip().lower()
-        if wanted_gender == "M":
+        if wanted_gender == "m":
             return Gender.MALE
-        if wanted_gender == "F":
+        if wanted_gender == "f":
             return Gender.FEMALE
         print("Invalid value entered.")
         continue
@@ -152,8 +174,7 @@ def ability_prompt() -> int | None:
     while True:
         option = input("Ability (0/1): ") or ""
         try:
-            if option:
-                answer = int(option)
+            if option: answer = int(option)
         except ValueError:
             print("Invalid value entered.")
             continue
@@ -167,38 +188,24 @@ def ability_prompt() -> int | None:
         continue
 
 
-def shiny_prompt() -> bool:
+def shiny_prompt() -> ShinySearch:
     while True:
-        answer = input("Search for shinies only? (Y/n)").strip().lower() or "y"
-        if answer == "y":
-            return True
-        if answer == "n":
-            return False
-        print("Invalid value entered.")
-        continue
-
-
-def shiny_type_prompt() -> tuple[bool, bool]:
-    print(f"""Choose shiny type:
-Square - 0
-Star - 1
-Star/Square - 2\
-""")
-    while True:
-        option = input("Option: ") or "2"
-        try:
-            answer = int(option)
-        except ValueError:
-            print("Invalid value entered.")
-            continue
-        if answer == 0:
-            return (True, False)
-        if answer == 1:
-            return (False, True)
-        if answer == 2:
-            return (False, False)
-        print("Invalid value entered.")
-        continue
+        raw_answer = input(
+            f"""Search: Any (0) \
+| Square-only (1) \
+| Star-only (2) \
+| Star/Square (3) \
+| Non-Shiny (4) (default is 3): """).strip()
+        answer = raw_answer[0] if raw_answer else "3"
+        match answer:
+            case "0": return ShinySearch.DONT_CARE
+            case "1": return ShinySearch.SQUARE_ONLY
+            case "2": return ShinySearch.STAR_ONLY
+            case "3": return ShinySearch.ALL_SHINY
+            case "4": return ShinySearch.NON_SHINY
+            case _:
+                print("Invalid value entered.")
+                continue
 
 
 def main() -> None:
@@ -208,25 +215,17 @@ def main() -> None:
     ability = ability_prompt()
     gender_ratio = gender_ratio_prompt()
     gender = gender_prompt(gender_ratio)
-    shiny_only = shiny_prompt()
-    if shiny_only:
-        square_only, star_only = shiny_type_prompt()
-    pids = random_pid(tid, sid, shiny_only, square_only, star_only)
-    for pid in pids:
-        if nature != read_nature(pid) and nature:
-            continue
-        if ability != read_ability(pid) and ability:
-            continue
-        if gender is not read_gender(pid, gender_ratio):
-            continue
-        found_pid = pid
-        break
+    shiny_search = shiny_prompt()
+    pid = search_pids(
+        tid, sid, 
+        shiny_search, 
+        nature, ability, gender, gender_ratio)
     print(f"""A PID has been found!
 TID/SID: {tid:05d}/{sid:05d}
-PID: {found_pid:08X}
-Gender: {read_gender(found_pid, gender_ratio).name.title()}
-Nature: {read_nature(found_pid).title()}
-Ability: {read_ability(found_pid)}""")
+PID: {pid:08X}
+Gender: {read_gender(pid, gender_ratio).name.title()}
+Nature: {read_nature(pid).title()}
+Ability: {read_ability(pid)}""")
 
 
 if __name__ == "__main__":
