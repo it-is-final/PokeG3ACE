@@ -9,5 +9,5 @@ ADD r2, #0x1 ; Increment to next byte
 ADD r5, #0x1 ; Increment to next char
 CMP r5, #0x59
 BMI #-0xE ; Return to LDRB r3, [r1, r5]
-MOV pc, lr
+MOV pc, r0
 0x2024258 ; Address of party slot 3 in Japanese Emerald
