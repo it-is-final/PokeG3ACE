@@ -1,4 +1,4 @@
-ADD r1, pc, #0x9C
+ADD r1, pc, #0x90
 LDR r2, [pc, #0x24]
 EOR r5, r5 ; Zero out r5
 LDRB r3, [r1, r5] ; Load char from box name
