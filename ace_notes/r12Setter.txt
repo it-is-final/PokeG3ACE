@@ -1,15 +1,15 @@
 ### Box Code ###
 Box  1: 4 C U n b I … o	[4CUnbI…o]
 Box  2: O ? n z G ? n _	[O?nzG?n ]
-Box  3: _ _ 4 L ? n _ _	[  4L?n  ]
-Box  4: _ _ F ! q _ _ _	[  F!q   ]
-Box  5: F ‘ ! n 7 K … o	[F‘!n7K…o]
-Box  6: H ? n V J ? n _	[H?nVJ?n ]
-Box  7: _ _ … G Q m _ _	[  …GQm  ]
-Box  8: _ ’ G Q m _ _ _	[ ’GQm   ]
-Box  9: N S … o ♀ F Q m	[NS…o♀FQm]
-Box 10: _ _ _ _ _ … o a	[     …oa]
-Box 11: … o _ _ _ _ _ _	[…o      ]
+Box  3: ? ” 4 L ? n _ _	[?”4L?n  ]
+Box  4: E _ F ! q _ _ _	[E F!q   ]
+Box  5: F ‘ ! n R G … o	[F‘!nRG…o]
+Box  6: H R n f J ? n _	[HRnfJ?n ]
+Box  7: ? ” _ F ! q _ _	[?” F!q  ]
+Box  8: E … G Q m _ _ _	[E…GQm   ]
+Box  9: ’ G Q m N S … o	[’GQmNS…o]
+Box 10: _ F o ♀ F Q m a	[ Fo♀FQma]
+Box 11: … o	[…o]
 
 ### Pokemon Nickname code ###
 
@@ -20,20 +20,25 @@ EA00000F    B #0x44
 
 ### CodeGenerator input ###
 
-@@ exit = "GrabACEExit"
+@@ filler1 = 0xB2AC00FF
+@@ filler2 = 0xB2ACFF00
+@@ filler3 = 0xBFFF0000
 @@
-
 SBC r11, pc, #0x2940
 MOVS r12, #0x58000003
 ADC r12, r12, #0x3FC000
 ADC r12, r12, #0x8000003B
-ADC r12, r12, #0xA500000
+ADC r12, r12, #0xA500000 ; r12 = E28FC03E ADD r12, pc, #0x3E
 STR r12, [r11]!
 ADC r11, r11, #0x3
-MOVS r12, #0x2A000000
-ADC r12, #0xF000000F
-ADC r12, #0xD0000000
+MOVS r12, #0x33
+SBC r12, #0xF000000F
+ADC r12, #0xDA000000 ; r12 = EA000023 B #0x94
+STR r12, [r11]!
 STRH r12, [r11, #0x10]
 STRH r12, [r11, #0x14]
 MOVS r12, #0x3200
+BIC r0, r0, #0xFF ; Alternate exit
 STRH r12, [r11, #0x6] ; Set hasSpecies flag
+MOVS pc, #0x354
+0xFFFFFFFF
