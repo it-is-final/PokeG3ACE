@@ -26,7 +26,7 @@ If control of the game has not been returned, that means you wrote the name of B
 If the game crashes, make sure that you have written the code correctly, and that there are no invisible Pokemon in the execution area of your grab ACE Pokemon.
 
 ## Exiting for more complex payloads
-For more complex payloads the must exit before the box names, use the exit code bootstrap [here](ace_notes/ExitCodes/GrabACEBootstrap.md).
+For more complex payloads the must exit before the box names, use the exit code bootstrap [here](GrabACEBootstrap.md).
 
 ## Explanation
 The Box 14 name consists of two opcodes, they are the aforementioned `BX lr` and `BIC r0, r0, #0xFF`.

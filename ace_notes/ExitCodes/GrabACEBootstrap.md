@@ -64,7 +64,7 @@ Box 12: E _ _ _ _ _ _ _	[E       ]
 Box 13: _ _ _ … _ _ _ _	[   …    ]
 Box 14: _ F o _ _ _ _ _	[ Fo     ]
 ```
-More details on how it works can be found [here](ace_notes/ExitCodes/FRLG_GrabACE_ShortExit.md).
+More details on how it works can be found [here](FRLG_GrabACE_ShortExit.md).
 
 ## How it works
 The nickname is the first bit of actual code to be executed in the bootstrap, the bytes correspond to the following opcodes:
