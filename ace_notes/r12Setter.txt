@@ -16,7 +16,7 @@ Box 11: … o	[…o]
 Nickname is ` F nÔ  v  `
 
 E28FC03E    ADD r12, pc, #0x3E
-EA00000F    B #0x44
+EA000023    B #0x94
 
 ### CodeGenerator input ###
 
