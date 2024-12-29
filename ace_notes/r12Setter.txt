@@ -1,0 +1,39 @@
+### Box Code ###
+Box  1: 4 C U n b I … o	[4CUnbI…o]
+Box  2: O ? n z G ? n _	[O?nzG?n ]
+Box  3: _ _ 4 L ? n _ _	[  4L?n  ]
+Box  4: _ _ F ! q _ _ _	[  F!q   ]
+Box  5: F ‘ ! n 7 K … o	[F‘!n7K…o]
+Box  6: H ? n V J ? n _	[H?nVJ?n ]
+Box  7: _ _ … G Q m _ _	[  …GQm  ]
+Box  8: _ ’ G Q m _ _ _	[ ’GQm   ]
+Box  9: N S … o ♀ F Q m	[NS…o♀FQm]
+Box 10: _ _ _ _ _ … o a	[     …oa]
+Box 11: … o _ _ _ _ _ _	[…o      ]
+
+### Pokemon Nickname code ###
+
+Nickname is ` F nÔ  v  `
+
+E28FC03E    ADD r12, pc, #0x3E
+EA00000F    B #0x44
+
+### CodeGenerator input ###
+
+@@ exit = "GrabACEExit"
+@@
+
+SBC r11, pc, #0x2940
+MOVS r12, #0x58000003
+ADC r12, r12, #0x3FC000
+ADC r12, r12, #0x8000003B
+ADC r12, r12, #0xA500000
+STR r12, [r11]!
+ADC r11, r11, #0x3
+MOVS r12, #0x2A000000
+ADC r12, #0xF000000F
+ADC r12, #0xD0000000
+STRH r12, [r11, #0x10]
+STRH r12, [r11, #0x14]
+MOVS r12, #0x3200
+STRH r12, [r11, #0x6] ; Set hasSpecies flag
