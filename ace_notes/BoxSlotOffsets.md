@@ -488,7 +488,7 @@ for box_number in range(BOXES, 0, -1):
 |    14 |     23 | 0x2C0    |
 |    14 |     29 | 0xE0     |
 
-### Japanese
+### Japanese ARM
 |   Box |   Slot | Offset   |
 |-------|--------|----------|
 |     1 |      9 | 0x8100   |
