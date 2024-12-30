@@ -33,7 +33,7 @@ The Box 14 name consists of two opcodes, they are the aforementioned `BX lr` and
 
 `BIC r0, r0, #0xFF` which is encoded as `✖_Fo` in the character set, with `✖` representing the string terminator.
 This clears the lower 8 bits of `r0` which tells the game that the current task (in this case shifting Pokemon) has ended, otherwise the game will be stuck waiting for the signal that the task ended, and control never returned back to the player.
-Older versions of this code did not use this opcode, instead using `ADCLT r12, r0, #0xFF` (`✖_?”`) which does nothing, and also forces code authors using the older setup to either append `MOVS r0, r0, #0x0` as the very last opcode before Box 14 or make users create a bootstrap that zeroes out `r0`
+Older versions of this code did not use this opcode, instead using `ADCLT r12, r0, #0xFF` (`✖_?”`) which does nothing, and also forces code authors using the older setup to either append `MOVS r0, r0, #0x0` as the very last opcode before Box 14 or make users create a bootstrap that zeroes out `r0` to ensure that the game returns control back to the user properly.
 
 `BX lr` jumps the `pc` (program counter) back into the game's code handling the remainder of the shifting task.
 
