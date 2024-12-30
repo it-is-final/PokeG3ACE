@@ -1,0 +1,39 @@
+### SOURCE CODE ###
+add r8, pc, #0x8a ; r8 = Box Names - 12
+ldm r8!, {r9, r10, r11} ; all should be 0
+cmp r12, #0x2000000
+sublo r12, pc, #0x66 ; r12 = box slot before
+ldrb r1, [r8, r9] ; r1 = character of box name
+cmp r1, #0xFF
+beq #0x18 ; jump to add r9, r9, #0x1
+and r1, r1, #0xF ; Get lower nibble
+add r11, r1, r11, lsl #0x4
+tst r10, #0x1
+strbne r11, [r12], #0x1
+add r10, r10, #0x1
+add r9, r9, #0x1
+cmp r9, #0x7E
+bmi #-0x28
+bx r0
+
+### Pokemon Data ###
+8A808FE2
+000EB8E8
+02045CE3
+66C04F32
+0910D8E7
+FF0051E3
+0400000A
+0F1001E2
+0BB281E0
+01001AE3
+01B0CC14
+01A08AE2
+019089E2
+7E0059E3
+F4FFFF4A
+1EFF2FE1
+00000000
+00000000
+00000040
+00000000
