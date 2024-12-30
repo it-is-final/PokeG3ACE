@@ -26,7 +26,7 @@ def convert_payload(payload: list[int]):
     out: list[int] = []
     for short in i_payload:
         out.append(
-            short | (next(i_payload, 0xFFFF) << 16)
+            short | next(i_payload, 0xFFFF) << 16
         )
     return out
 
