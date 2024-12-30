@@ -2,6 +2,26 @@
 This document lists box slots accessible from an offset that can be written in only one `SBC` (European) or `SUB` (Japanese ARM) instruction in ARM mode.
 Different types of offsets from the PID of the box slot will be listed below, with the offset from PID with an aligned `pc` listed first and the offset from a misaligned `pc` listed second without considering the carry flag.
 
+## Algorithm used to find these offsets
+```
+VALID_CHARS = [...] # List of character indexes writable in game
+PC_OFFSET = 8
+offsets = []
+distance = PC_OFFSET
+BOXES = 14
+SLOTS = 30
+BOX_MON_SIZE = 80
+OFFSET = 8 # Can be a different number
+for box_number in range(BOXES, 0, -1):
+    for slot in range(SLOTS, 0, -1):
+        distance += BOX_MON_SIZE
+        for char in VALID_CHARS:
+            for i in range(16):
+                immediate = char >> i * 2 | (char << (32 - i * 2) & 2**32 - 1)
+                if immediate == (distance + OFFSET):
+                    offsets.append([box_number, slot, immediate])
+```
+
 ## +8/+10 from PID
 +7/+9 from PID with `SBC` and an unset carry flag
 
@@ -424,6 +444,149 @@ Different types of offsets from the PID of the box slot will be listed below, wi
 |    14 |     28 | 0x110    |
 |    14 |     29 | 0xC0     |
 |    14 |     30 | 0x70     |
+
+## -56/-54
+-57/-55 from PID with `SBC` and unset carry flag
+
+### European
+|   Box |   Slot | Offset   |
+|-------|--------|----------|
+|     8 |     23 | 0x3B00   |
+|     8 |     27 | 0x39C0   |
+|     9 |      1 | 0x3880   |
+|     9 |      5 | 0x3740   |
+|     9 |      9 | 0x3600   |
+|     9 |     13 | 0x34C0   |
+|     9 |     17 | 0x3380   |
+|     9 |     21 | 0x3240   |
+|     9 |     25 | 0x3100   |
+|     9 |     29 | 0x2FC0   |
+|    10 |      3 | 0x2E80   |
+|    10 |      7 | 0x2D40   |
+|    10 |     11 | 0x2C00   |
+|    10 |     15 | 0x2AC0   |
+|    10 |     19 | 0x2980   |
+|    10 |     23 | 0x2840   |
+|    13 |     15 | 0xEA0    |
+|    13 |     16 | 0xE50    |
+|    13 |     17 | 0xE00    |
+|    13 |     18 | 0xDB0    |
+|    13 |     19 | 0xD60    |
+|    13 |     20 | 0xD10    |
+|    13 |     21 | 0xCC0    |
+|    13 |     22 | 0xC70    |
+|    13 |     23 | 0xC20    |
+|    13 |     24 | 0xBD0    |
+|    13 |     25 | 0xB80    |
+|    13 |     26 | 0xB30    |
+|    13 |     27 | 0xAE0    |
+|    13 |     28 | 0xA90    |
+|    13 |     29 | 0xA40    |
+|    14 |     20 | 0x3B0    |
+|    14 |     21 | 0x360    |
+|    14 |     22 | 0x310    |
+|    14 |     23 | 0x2C0    |
+|    14 |     29 | 0xE0     |
+
+### Japanese
+|   Box |   Slot | Offset   |
+|-------|--------|----------|
+|     1 |      9 | 0x8100   |
+|     1 |     25 | 0x7C00   |
+|     2 |     11 | 0x7700   |
+|     2 |     27 | 0x7200   |
+|     3 |     13 | 0x6D00   |
+|     3 |     29 | 0x6800   |
+|     4 |     15 | 0x6300   |
+|     5 |      1 | 0x5E00   |
+|     5 |     17 | 0x5900   |
+|     6 |      3 | 0x5400   |
+|     6 |     19 | 0x4F00   |
+|     7 |      5 | 0x4A00   |
+|     7 |     21 | 0x4500   |
+|     8 |      7 | 0x4000   |
+|     8 |     23 | 0x3B00   |
+|     8 |     27 | 0x39C0   |
+|     9 |      1 | 0x3880   |
+|     9 |      5 | 0x3740   |
+|     9 |      9 | 0x3600   |
+|     9 |     13 | 0x34C0   |
+|     9 |     17 | 0x3380   |
+|     9 |     21 | 0x3240   |
+|     9 |     25 | 0x3100   |
+|     9 |     29 | 0x2FC0   |
+|    10 |      3 | 0x2E80   |
+|    10 |      7 | 0x2D40   |
+|    10 |     11 | 0x2C00   |
+|    10 |     15 | 0x2AC0   |
+|    10 |     19 | 0x2980   |
+|    10 |     23 | 0x2840   |
+|    10 |     27 | 0x2700   |
+|    11 |      1 | 0x25C0   |
+|    11 |      5 | 0x2480   |
+|    11 |      9 | 0x2340   |
+|    11 |     13 | 0x2200   |
+|    11 |     17 | 0x20C0   |
+|    11 |     21 | 0x1F80   |
+|    11 |     25 | 0x1E40   |
+|    11 |     29 | 0x1D00   |
+|    12 |      3 | 0x1BC0   |
+|    12 |      7 | 0x1A80   |
+|    12 |     11 | 0x1940   |
+|    12 |     15 | 0x1800   |
+|    12 |     19 | 0x16C0   |
+|    12 |     23 | 0x1580   |
+|    12 |     27 | 0x1440   |
+|    13 |      1 | 0x1300   |
+|    13 |      5 | 0x11C0   |
+|    13 |      9 | 0x1080   |
+|    13 |     13 | 0xF40    |
+|    13 |     15 | 0xEA0    |
+|    13 |     16 | 0xE50    |
+|    13 |     17 | 0xE00    |
+|    13 |     18 | 0xDB0    |
+|    13 |     19 | 0xD60    |
+|    13 |     20 | 0xD10    |
+|    13 |     21 | 0xCC0    |
+|    13 |     22 | 0xC70    |
+|    13 |     23 | 0xC20    |
+|    13 |     24 | 0xBD0    |
+|    13 |     25 | 0xB80    |
+|    13 |     26 | 0xB30    |
+|    13 |     27 | 0xAE0    |
+|    13 |     28 | 0xA90    |
+|    13 |     29 | 0xA40    |
+|    13 |     30 | 0x9F0    |
+|    14 |      1 | 0x9A0    |
+|    14 |      2 | 0x950    |
+|    14 |      3 | 0x900    |
+|    14 |      4 | 0x8B0    |
+|    14 |      5 | 0x860    |
+|    14 |      6 | 0x810    |
+|    14 |      7 | 0x7C0    |
+|    14 |      8 | 0x770    |
+|    14 |      9 | 0x720    |
+|    14 |     10 | 0x6D0    |
+|    14 |     11 | 0x680    |
+|    14 |     12 | 0x630    |
+|    14 |     13 | 0x5E0    |
+|    14 |     14 | 0x590    |
+|    14 |     15 | 0x540    |
+|    14 |     16 | 0x4F0    |
+|    14 |     17 | 0x4A0    |
+|    14 |     18 | 0x450    |
+|    14 |     19 | 0x400    |
+|    14 |     20 | 0x3B0    |
+|    14 |     21 | 0x360    |
+|    14 |     22 | 0x310    |
+|    14 |     23 | 0x2C0    |
+|    14 |     24 | 0x270    |
+|    14 |     25 | 0x220    |
+|    14 |     26 | 0x1D0    |
+|    14 |     27 | 0x180    |
+|    14 |     28 | 0x130    |
+|    14 |     29 | 0xE0     |
+|    14 |     30 | 0x90     |
 
 ## -136/-134 from PID
 -137/-135 from PID with `SBC` and unset carry flag
