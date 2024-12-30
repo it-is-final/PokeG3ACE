@@ -1,15 +1,17 @@
 ### Box Code ###
-Box  1: 4 C U n b I … o	[4CUnbI…o]
-Box  2: O ? n z G ? n _	[O?nzG?n ]
-Box  3: ? ” 4 L ? n _ _	[?”4L?n  ]
-Box  4: E _ F ! q _ _ _	[E F!q   ]
-Box  5: F ‘ ! n R G … o	[F‘!nRG…o]
+Box  1: 4 . U n r H … o	[4.UnrH…o]
+Box  2: … … o H G ? n _	[……oHG?n ]
+Box  3: ? ” 2 M ? n _ _	[?”2M?n  ]
+Box  4: E x Q ? n _ _ _	[ExQ?n   ]
+Box  5: _ F 9 q R G … o	[ F9qRG…o]
 Box  6: H R n f J ? n _	[HRnfJ?n ]
-Box  7: ? ” _ F ! q _ _	[?” F!q  ]
-Box  8: E … G Q m _ _ _	[E…GQm   ]
-Box  9: ’ G Q m N S … o	[’GQmNS…o]
-Box 10: _ F o ♀ F Q m a	[ Fo♀FQma]
-Box 11: … o	[…o]
+Box  7: ? ” F 2 9 n _ _	[?”F29n  ]
+Box  8: E _ F 9 q _ _ _	[E F9q   ]
+Box  9: N S … o … “ P m	[NS…o…“Pm]
+Box 10: _ ? ” ’ “ P m _	[ ?”’“Pm ]
+Box 11: ? ” ♀ F P m _ _	[?”♀FPm  ]
+Box 12: E _ _ _ _ _ _ _	[E       ]
+Box 13: _ _ _ … _ _ _ _	[   …    ]
 
 ### Pokemon Nickname code ###
 
@@ -23,22 +25,21 @@ EA000023    B #0x94
 @@ filler1 = 0xB2AC00FF
 @@ filler2 = 0xB2ACFF00
 @@ filler3 = 0xBFFF0000
+@@ exit = "Bootstrapped"
 @@
-SBC r11, pc, #0x2940
-MOVS r12, #0x58000003
-ADC r12, r12, #0x3FC000
-ADC r12, r12, #0x8000003B
-ADC r12, r12, #0xA500000 ; r12 = E28FC03E ADD r12, pc, #0x3E
-STR r12, [r11]!
-ADC r11, r11, #0x3
+SBC r10, pc, #0x2940
+MOVS r12, #0x6000000e
+MOVS r11, #0xFF
+ADC r12, r12, #0x80000030
+ADC r12, r12, #0x28c0000
+ADC r12, r12, #0x3b000 ; E28FB03E	ADD r11, r15, #0x3e
+STR r12, [r10]!
 MOVS r12, #0x33
-SBC r12, #0xF000000F
-ADC r12, #0xDA000000 ; r12 = EA000023 B #0x94
-STR r12, [r11]!
-STRH r12, [r11, #0x10]
-STRH r12, [r11, #0x14]
+SBC r12, r12, #0xF000000F
+ADC r12, r12, #0xDA000000
+ADC r10, r10, #0x3
+STR r12, [r10]!
 MOVS r12, #0x3200
-BIC r0, r0, #0xFF ; Alternate exit
-STRH r12, [r11, #0x6] ; Set hasSpecies flag
-MOVS pc, #0x354
-0xFFFFFFFF
+STRH r11, [r10, #0x10]
+STRH r11, [r10, #0x14]
+STRH r12, [r10, #0x6]
