@@ -129,7 +129,50 @@ This is one of those efforts.
     Box 13: _ _ _ … _ _ _ _	[   …    ]
 
     ```
+5. The bad egg is now ready to be used as the hexwriter.
+Its hex data should be identical to the original version of the hexwriter.
+Move this bad egg to Box 14, Slot 29 and execute ACE.
+Most likely whatever is written in the box names would be interpreted as a bad egg, however if you want certainty that the hexwriter is working normally, write the following names and execute ACE.
+```
+Box  1: 00000000
+Box  2: 00000000
+Box  3: BDDCD5E6
+Box  4: E0D9E7FF
+Box  5: FFFF0002
+Box  6: 00000000
+Box  7: 00000000
+Box  8: 01000000
+Box  9: 01000000
+Boxes 10-14: 00000000
+```
+A Bulbasaur named 'Charles' should appear in Box 14, Slot 28
 
+If you want to know what the hex data for the hexwriter is supposed to be, it is the following:
+```
+8A808FE2
+000EB8E8
+02045CE3
+66C04F32
+0910D8E7
+B11051E2
+10109132
+0BB28150
+00B09C45
+01001AE3
+01B0CC14
+00B0A013
+07005AE3
+01A08A32
+00A0A023
+01908922
+019089E2
+7E0059E3
+40F04F42
+10FF2FE1
+```
+
+## Troubleshooting
+If the hexwriter is not working as expected, please refer to [this troubleshooting guide](https://e-sh4rk.github.io/ACE3/emerald/hex-writer/hex-writer/#appendix-in-case-of-failure) for the hexwriter.
 
 ## How these codes work
 ```
@@ -166,6 +209,15 @@ MOVS r12, #{opcode_3} ?
 STR r12, [r11, r14, LSR #25]!
 ```
 with some codes using different instructions due to either having a halfword already written with the mail corruption enabling us to use `STRH` and using `MOVS` with only half of the instruction as the immediate or having an unwritable offset.
+
+## Mail corruption
+The mail corruption allows directly writing halfwords that would have made the main code writing process longer.
+With the mail written at the start of the process, here is the index of each word we wrote:
+|Word|Index (hex)|
+|-|-|
+|`LISTEN`|0E00|
+|`THICK FAT`|0402|
+|`LIKELY TO`|1009|
 
 ## CodeGenerator Input
 All of these codes have the following header
@@ -307,3 +359,9 @@ Writes:
 ```
 E12FFF10 @ 0x4C+0xA7
 ```
+
+## References and Acknowledgements
+- [E-Sh4rk's original article for the hexwriter](https://e-sh4rk.github.io/ACE3/emerald/hex-writer/hex-writer/)
+- [Adrichu00's method of writing the hexwriter](https://gist.github.com/Adrichu00/49433953af9d6fd7c1cd368d48c68778)
+- RationalPsycho on the Glitch City Research Institute Discord for the glitched mail inputs
+- merrp on the Glitch City Research Institute Discord for the `STR+4` opcode used in the codes.
