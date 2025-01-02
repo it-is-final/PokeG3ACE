@@ -5,7 +5,7 @@ This is one of those efforts.
 
 ## Prequisites
 - Knowledge on how to perform mail corruption and grab ACE
-- `BIC r0, r0, #0xFF` and `BX lr` written to Box 14's name, the name should like like ` Foì`
+- `BIC r0, r0, #0xFF` and `BX lr` written to Box 14's name, the name should like ` Foì`
     - This specific set-up does not require any bootstrap if you are writing box name codes only
     - Instructions on how to write this can be found [here](ExitCodes/FRLG_GrabACE_ShortExit.md)
 - The exit code bootstrap.
