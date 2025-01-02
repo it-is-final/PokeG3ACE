@@ -1,0 +1,108 @@
+Glitchy MAIL:
+LISTEN -> 3rd slot
+THICK FAT -> 5th slot
+LIKELY TO -> 9th slot
+
+CODE 1
+
+Box  1: C C U n 2 M … o	[CCUn2M…o]
+Box  2: _ _ _ – H ? n _	[   –H?n ]
+Box  3: _ _ i Q ? n _ _	[  iQ?n  ]
+Box  4: _ N T ? n _ _ _	[ NT?n   ]
+Box  5: 6 F ! q t R … o	[6F!qtR…o]
+Box  6: _ _ _ , F ? n _	[   ,F?n ]
+Box  7: _ _ ♀ F w m _ _	[  ♀Fwm  ]
+Box  8: _ l R … o _ _ _	[ lR…o   ]
+Box  9: c U ? n ’ F w m	[cU?n’Fwm]
+Box 10: _ _ _ g G l o _	[   gGlo ]
+Box 11: _ _ g L R n _ _	[  gLRn  ]
+Box 12: _ a S R n _ _ _	[ aSRn   ]
+Box 13: 1 T R n – R ! s	[1TRn–R!s]
+
+Whats written:
+
+E28F808A @ 0x0+0xA7
+E8B8
+E35C
+324FC066
+
+CODE 2
+
+Box  1: C C U n s R … o	[CCUnsR…o]
+Box  2: _ _ _ d F ? n _	[   dF?n ]
+Box  3: _ _ / Q w m _ _	[  /Qwm  ]
+Box  4: _ z K … o _ _ _	[ zK…o   ]
+Box  5: 6 J ? n W N ? n	[6J?nWN?n]
+Box  6: F ? n – R ! s _	[F?n–R!s ]
+Box  7: _ _ C G … o _ _	[  CG…o  ]
+Box  8: _ d K R n _ _ _	[ dKRn   ]
+Box  9: 3 G R n – R ! s	[3GRn–R!s]
+Box 10: _ _ _ I G l o _	[   IGlo ]
+Box 11: _ _ 1 J ? n _ _	[  1J?n  ]
+Box 12: _ t R ? n _ _ _	[ tR?n   ]
+Box 13: 0 S ? n – R ! s	[0S?n–R!s]
+
+Whats written
+E7D8 @ 0x12+0xA7+1
+E35100FF
+0A000004
+E201100F
+
+CODE 3
+Box  1: C C U n D K l o	[CCUnDKlo]
+Box  2: _ _ _ G H ? n _	[   GH?n ]
+Box  3: _ _ z R ? n _ _	[  zR?n  ]
+Box  4: _ J R ? n _ _ _	[ JR?n   ]
+Box  5: M F ! q 1 H l o	[MF!q1Hlo]
+Box  6: _ _ _ I M ? n _	[   IM?n ]
+Box  7: _ _ l P ? n _ _	[  lP?n  ]
+Box  8: _ F H ? n _ _ _	[ FH?n   ]
+Box  9: – R ! s L I … o	[–R!sLI…o]
+Box 10: _ _ _ R M R n _	[   RMRn ]
+Box 11: _ _ Z Q R n _ _	[  ZQRn  ]
+Box 12: _ – R ! s _ _ _	[ –R!s   ]
+Box 13: _ _ _ … _ _ _ _	[   …    ]
+
+Whats written:
+E081B20B @ 0x20+0xA7
+E31A0001
+14CCB001
+
+CODE 4
+Box  1: C C U n 1 H l o	[CCUn1Hlo]
+Box  2: _ _ _ 1 M ? n _	[   1M?n ]
+Box  3: _ _ 7 Q ? n _ _	[  7Q?n  ]
+Box  4: _ F H ? n _ _ _	[ FH?n   ]
+Box  5: Y F ! q 4 J l o	[YF!q4Jlo]
+Box  6: _ _ _ 0 I ? n _	[   0I?n ]
+Box  7: _ _ k M ? n _ _	[  kM?n  ]
+Box  8: _ e P ? n _ _ _	[ eP?n   ]
+Box  9: – R ! s N I l o	[–R!sNIlo]
+Box 10: _ _ _ b M ? n _	[   bM?n ]
+Box 11: _ _ c R ? n _ _	[  cR?n  ]
+Box 12: _ 2 S ? n _ _ _	[ 2S?n   ]
+Box 13: H F ? n – R ! s	[HF?n–R!s]
+
+Whats written:
+E28AA001 @ 0x2C+0xA7
+E2899001
+E359007E
+
+CODE 5
+Box  1: C C U n B H l o	[CCUnBHlo]
+Box  2: _ _ _ … L ? n _	[   …L?n ]
+Box  3: _ _ k F ! q _ _	[  kF!q  ]
+Box  4: _ M I l o _ _ _	[ MIlo   ]
+Box  5: ’ M R n v F R n	[’MRnvFRn]
+Box  6: _ _ _ – R ! s _	[   –R!s ]
+Box  7: _ _ _ _ _ … _ _	[     …  ]
+Box  8: _ _ _ _ … _ _ _	[    …   ]
+Box  9: _ _ _ … _ _ _ _	[   …    ]
+Box 10: _ _ _ _ _ _ … _	[      … ]
+Box 11: _ _ _ _ _ … _ _	[     …  ]
+Box 12: _ _ _ _ … _ _ _	[    …   ]
+Box 13: _ _ _ … _ _ _ _	[   …    ]
+
+Whats written:
+4AFFFFF4 @ 0x38+0xA7
+E12FFF10
