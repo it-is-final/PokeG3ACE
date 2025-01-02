@@ -114,10 +114,10 @@ This is one of those efforts.
     Box 13: G S ? n – R ! s	[GS?n–R!s]
 
     ### CODE 7 ###
-    Box  1: C . U n z L l o	[C.UnzLlo]
+    Box  1: B C U n z L l o	[BCUnzLlo]
     Box  2: L R n y F R n _	[LRnyFRn ]
-    Box  3: _ _ Y E f l _ _	[  YEfl  ]
-    Box  4: _ _ F 9 q _ _ _	[  F9q   ]
+    Box  3: _ _ ‘ F ! q _ _	[  ‘F!q  ]
+    Box  4: _ _ _ _ … _ _ _	[    …   ]
     Box  5: _ _ _ … _ _ _ _	[   …    ]
     Box  6: _ _ _ _ _ _ … _	[      … ]
     Box  7: _ _ _ _ _ … _ _	[     …  ]
@@ -181,7 +181,7 @@ SBC r11, pc, #0x2F40
 This subtracts `0x2F40` from the `pc` register, and due to the instruction being `SBC` and the carry flag is unset, it also subtracts an extra `0x1` from the result.
 Since it is expected that the code will be executed using `0x351` where it executes in ARM mode with the `pc` register's bit 1 set to `1`, the result assigned to `r11` will be `0xA7` (167) bytes before the PID of Box 10, Slot 2.
 I have chosen an offset of `0xA7` as that it and (most) later offsets are writable using the European character set which allows storing using `STR r12, [r11, {offset}]!` and for the most part remove the need to waste an opcode incrementing `r11`.
-In the very last code I have to use `r10` instead of `r11` as we need to use `r11` to increment `r10` via `LDRSB` thanks to the offset being unwritable
+In the very last code, I (thanks to the suggestion of Adrichu00) changed the immediate being subtracted from `#0x2F40` to `#0x2F00` which allows writing an `STR` instruction for that particular section without needing to use `ADC` or `LDRSB` to increment `r11`.
 
 ```
 STR r12, [r11, r14, LSR #25]! ; encoded as `E7ABCCAE`
@@ -190,13 +190,6 @@ merrp is to be credited for using this trick to be able to increment `r11` using
 Since `r14` is always initially a ROM address where the most significant byte of the address is usually `0x8`, if the value is shifted right by 25 bits, it will become `0x4`.
 This allows writing to the address stored in `r11` + `0x4` which is highly useful for the purposes of writing the hexwriter, as we do not need to waste more opcodes on writing half of each instruction then using `STRH` which takes up more space.
 However for FireRed and LeafGreen, since we have access to mail corruption, and it so happens that some of the halfwords are writable as mail words, we can still use `STRH` for those instructions where half of it is already written by mail corruption.
-
-```
-LDRSB r11, [r10], #{offset}
-```
-This is essentially another way of incrementing a register without needing to deal with the highly limited European character set that we may face in `ADC`, `STR`, and sometimes `LDRH`.
-This particular instruction with the right destination register, can increment the source register by any offset between `0x0` and `0xFF` which is better than `LDRH`/`STRH`'s unavailability of offsets with the lower nibble of `0x7` or `0x9`.
-Though I used `r11` as for that last code, the needed offset is perfectly writable with `r11` as the destination register.
 
 From this, the codes are generally structured as the following:
 ```
@@ -347,17 +340,16 @@ E359007E
 
 ### Code 7
 ```
-SBC r10, pc, #0x2F40
+SBC r11, pc, #0x2F00
 MVN r12, #0xEE00000
 SBC r12, #0xFF00000
 SBC r12, #0xED ; Change to #0xDF if you want to exit via `BX lr`, make sure to zero out `r0` before this!
-LDRSB r11, [r10], #0xF3
-STR r12, [r10]!
+STR r12, [r11, #0xB3]!
 ```
 
 Writes:
 ```
-E12FFF10 @ 0x4C+0xA7
+E12FFF10 @ (0x4C+0xA7) - 0x40
 ```
 
 ## References and Acknowledgements
