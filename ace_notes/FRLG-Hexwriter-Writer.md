@@ -41,7 +41,7 @@ This is one of those efforts.
     ### CODE 2 ###
     Box  1: C C U n s R … o	[CCUnsR…o]
     Box  2: _ _ _ d F ? n _	[   dF?n ]
-    Box  3: _ _ / F ! q _ _	[  /F!q  ]
+    Box  3: _ _ / Q w m _ _	[  /Qwm  ]
     Box  4: _ W M … o _ _ _	[ WM…o   ]
     Box  5: k J ? n W P ? n	[kJ?nWP?n]
     Box  6: _ _ _ “ F ? n _	[   “F?n ]
@@ -247,7 +247,7 @@ E35C****
 ```
 SBC r11, pc, #0x2F40
 MOVS r12, #0xE7D8 ?
-STR r12, [r11, #0xBA]!
+STRH r12, [r11, #0xBA]!
 MOVS r12, #0xE25110B1 ?
 0xE7ABCCAE
 MOVS r12, #0x32911010 ?
