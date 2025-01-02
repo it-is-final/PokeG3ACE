@@ -15,6 +15,8 @@ This is one of those efforts.
 
 
 ## Instructions
+> [!NOTE]
+> These mail words will be different if your game's language is not English, consult Bulbapedia for a translation.
 1. Activate the mail glitch
 2. Write these words to their slot indicated by the arrow:
     - `LISTEN` → Word 3
@@ -181,7 +183,8 @@ SBC r11, pc, #0x2F40
 This subtracts `0x2F40` from the `pc` register, and due to the instruction being `SBC` and the carry flag is unset, it also subtracts an extra `0x1` from the result.
 Since it is expected that the code will be executed using `0x351` where it executes in ARM mode with the `pc` register's bit 1 set to `1`, the result assigned to `r11` will be `0xA7` (167) bytes before the PID of Box 10, Slot 2.
 I have chosen an offset of `0xA7` as that it and (most) later offsets are writable using the European character set which allows storing using `STR r12, [r11, {offset}]!` and for the most part remove the need to waste an opcode incrementing `r11`.
-In the very last code, I (thanks to the suggestion of Adrichu00) changed the immediate being subtracted from `#0x2F40` to `#0x2F00` which allows writing an `STR` instruction for that particular section without needing to use `ADC` or `LDRSB` to increment `r11`.
+
+In the very last code, I (thanks to the suggestion of Adrichu00) changed the immediate being subtracted from `#0x2F40` to `#0x2F00` which allows writing an `STR` instruction for that particular section without needing to use `ADC` or `LDRSB` to increment `r11`. With the original instruction, the offset needed for that box name code's `STR` would have been `0xF3` which is unwritable in every language except for German. However by moving `r11` forwards by `0x40` bytes with the different offset, `0xF3` becomes `0xB3` which is writable in every language.
 
 ```
 STR r12, [r11, r14, LSR #25]! ; encoded as `E7ABCCAE`
