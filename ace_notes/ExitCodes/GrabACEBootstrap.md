@@ -97,7 +97,21 @@ BD00 POP pc ; returns control to the game's code
 ```
 This does the routine of handing control back to the game in a safe manner.
 
-## CodeGenerator input
+## Technical details
+The nickname `␣␣␣C` populates the partial nickname with a Thumb opcode `POP pc` (`BD00`), this reduces the need to write out the payload via grab ACE.
+
+The mail words have the following indexes:
+|Word|Index|
+|-|-|
+|`GOTCHA`|`201`|
+|`MARVEL SCALE`|`44F`|
+|`RUBY`|`211`|
+|`I CHOOSE YOU`|`200`|
+|`WANDERING`|`2000`|
+
+`WANDERING` forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
+The rest of the words will partially form each ARM opcode that constitutes the PID/OTID with their most significant bytes being overwritten by the box name code.
+
 ```
 @@
 SBC r10, pc, #0x2F40 ; Box 10, Slot 2 - 0xA7
