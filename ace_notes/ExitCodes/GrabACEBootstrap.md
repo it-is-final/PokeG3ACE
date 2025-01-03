@@ -9,11 +9,11 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
 1. Catch any Pokemon and name it `␣␣␣C`
 2. Place this Pokemon in Box 3, Slot 1
 3. Write a glitched mail with the following contents:
-     - MAIL WORD 1 → `GOTCHA`
-     - MAIL WORD 2 → `MARVEL SCALE`
-     - MAIL WORD 3 → `RUBY`
-     - MAIL WORD 4 → `I CHOOSE YOU`
-     - MAIL WORD 5 → `WANDERING`
+     - Mail word 1 → GOTCHA
+     - Mail word 2 → MARVEL SCALE
+     - Mail word 3 → RUBY
+     - Mail word 4 → I CHOOSE YOU
+     - Mail word 5 → WANDERING
      - All other words should be left untouched
 4. After writing the glitched mail, the Pokemon should have turned into a bad EGG, move this to Box 10, Slot 2
 3. Write the following box names:
@@ -101,15 +101,15 @@ This does the routine of handing control back to the game in a safe manner.
 The nickname `␣␣␣C` populates the partial nickname with a Thumb opcode `POP pc` (`BD00`), this reduces the need to write out the payload via grab ACE.
 
 The mail words have the following indexes:
-|Word|Index|
+|Word|Index (hex)|
 |-|-|
-|`GOTCHA`|`201`|
-|`MARVEL SCALE`|`44F`|
-|`RUBY`|`211`|
-|`I CHOOSE YOU`|`200`|
-|`WANDERING`|`2000`|
+|GOTCHA|201|
+|MARVEL SCALE|44F|
+|RUBY|211|
+|I CHOOSE YOU|200|
+|WANDERING|2000|
 
-`WANDERING` forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
+'WANDERING' forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
 The rest of the words will partially form each ARM opcode that constitutes the PID/OTID with their most significant bytes being overwritten by the box name code.
 
 ```
