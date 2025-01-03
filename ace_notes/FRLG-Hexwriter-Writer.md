@@ -1,4 +1,4 @@
-# FRLG Hexwriter in 7 Codes
+# FRLG Hexwriter in 6 Codes
 ## Preamble
 Recently there has been efforts to simplify the writing of the hexadecimal writer (hexwriter) with the 'advent' of mail corruption.
 This is one of those efforts.
