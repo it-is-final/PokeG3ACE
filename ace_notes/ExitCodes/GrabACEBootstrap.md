@@ -112,6 +112,7 @@ The mail words have the following indexes:
 'WANDERING' forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
 The rest of the words will partially form each ARM opcode that constitutes the PID/OTID with their most significant bytes being overwritten by the box name code.
 
+Below is the input fed into E-Sh4rk's CodeGenerator to produce the box name code
 ```
 @@
 SBC r10, pc, #0x2F40 ; Box 10, Slot 2 - 0xA7
