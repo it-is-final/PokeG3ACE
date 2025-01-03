@@ -203,7 +203,7 @@ STR r12, [r11, r14, LSR #25]!
 ```
 with some codes using different instructions due to either having a halfword already written with the mail corruption enabling us to use `STRH` and using `MOVS` with only half of the instruction as the immediate or having an unwritable offset.
 
-## Mail corruption
+### Mail corruption
 The mail corruption allows directly writing halfwords that would have made the main code writing process longer.
 With the mail written at the start of the process, here is the index of each word we wrote (an * means that byte was overwritten by a box name code):
 |Word|Index (hex)|
@@ -237,11 +237,11 @@ Box 12: _ d F ? n _ _ _	[ dF?n   ]
 Box 13: ‘ F Q m _ _ _ _	[‘FQm    ]
 ```
 
-## Box name codes
+### Box name codes
 Below are the inputs to E-Sh4rk's CodeGenerator for each box name code along with the exact bytes that each code writes, and their starting offsets
 If you see * in the writes section, that means part of it was already written by mail corruption or variable according to the note attached
 
-### Code 1
+#### Code 1
 Starting offset: 0x0 + 0xA7 = 0xA7
 ```
 @@ exit = "Bootstrapped"
@@ -273,7 +273,7 @@ Writes:
 ****D8E7
 ```
 
-### Code 2
+#### Code 2
 Starting offset: 0x14 + 0xA7 = 0xBB
 ```
 @@ exit = "Bootstrapped"
@@ -294,7 +294,7 @@ B11051E2
 0BB28150
 ```
 
-### Code 3
+#### Code 3
 Starting offset: 0x20 + 0xA7 = 0xC7
 ```
 @@ exit = "Bootstrapped"
@@ -315,7 +315,7 @@ Writes:
 01B0CC14
 ```
 
-### Code 4
+#### Code 4
 Starting offset: 0x2C + 0xA7 = 0xD3
 ```
 @@ exit = "Bootstrapped"
@@ -336,7 +336,7 @@ Writes:
 01A08A32
 ```
 
-### Code 5
+#### Code 5
 Starting offset: 0x38 + 0xA7 = 0xDF
 ```
 @@ exit = "Bootstrapped"
@@ -357,7 +357,7 @@ Writes:
 019089E2
 ```
 
-### Code 6
+#### Code 6
 Starting offset: 0x44 + 0xA7 = 0xEB
 ```
 @@ exit = "Bootstrapped"
