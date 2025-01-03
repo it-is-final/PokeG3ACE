@@ -20,10 +20,10 @@ This is one of those efforts.
 > These mail words will be different if your game's language is not English, consult Bulbapedia for a translation.
 1. Activate the mail glitch
 2. Write the following message to the glitchy mail:
-    - Mail word 1 → DREAM EATER or OMANYTE or GARDEVOIR
+    - Mail word 1 → OMANYTE or DREAM EATER or GARDEVOIR
     - Mail word 2 → SNORLAX or SKY ATTACK or METANG
     - Mail word 3 → LISTEN
-    - Mail word 4 → SCARY FACE or AZUMARILL
+    - Mail word 4 → leave it as is
     - Mail word 5 → THICK FAT
     - Mail word 6 → MINUS
     - Mail word 7 → PICKUP
@@ -37,15 +37,15 @@ This is one of those efforts.
     Box  2: _ _ _ 7 F Q q _	[   7FQq ]
     Box  3: _ _ n F … o _ _	[  nF…o  ]
     Box  4: _ 9 F Q q _ _ _	[ 9FQq   ]
-    Box  5: t F … o – F Q q	[tF…o–FQq]
-    Box  6: _ _ _ o F … o _	[   oF…o ]
-    Box  7: _ _ ” F Q q _ _	[  ”FQq  ]
-    Box  8: _ F F … o _ _ _	[ FF…o   ]
-    Box  9: ’ F Q q N G … o	[’FQqNG…o]
-    Box 10: _ _ _ ♀ F w q _	[   ♀Fwq ]
-    Box 11: _ _ s R … o _ _	[  sR…o  ]
-    Box 12: _ d F ? n _ _ _	[ dF?n   ]
-    Box 13: ‘ F Q m _ _ _ _	[‘FQm    ]
+    Box  5: t R … o , F ? n	[tR…o,F?n]
+    Box  6: _ _ _ C P Q m _	[   CPQm ]
+    Box  7: _ _ o F … o _ _	[  oF…o  ]
+    Box  8: _ ” F Q q _ _ _	[ ”FQq   ]
+    Box  9: F F … o ’ F Q q	[FF…o’FQq]
+    Box 10: _ _ _ N G … o _	[   NG…o ]
+    Box 11: _ _ ♀ F w q _ _	[  ♀Fwq  ]
+    Box 12: _ s R … o _ _ _	[ sR…o   ]
+    Box 13: d F ? n ‘ F Q m	[dF?n‘FQm]
 
     ### CODE 2 ###
     Box  1: C C U n W M … o	[CCUnWM…o]
@@ -211,12 +211,31 @@ With the mail written at the start of the process, here is the index of each wor
 |DREAM EATER / OMANYTE / GARDEVOIR|**8A|
 |SNORLAX / SKY ATTACK / METANG|**8F|
 |LISTEN|0E00|
-|SCARY FACE / AZUMARILL|**B8|
 |THICK FAT|0402|
 |MINUS|**5C|
 |PICKUP|**66|
 |MARVEL SCALE|**4F|
 |LIKELY TO|1009|
+
+While there are candidates for mail word 4, the problem is that they are only unlockable after the postgame which complicates writing this hexwriter for players who have went for New Game+.
+For those who are curious, here are the candidates for mail slot 4.
+|SCARY FACE / AZUMARILL|**B8|
+and here is box code 1 for those who have those words:
+```
+Box  1: C C U n 7 T … o	[CCUn7T…o]
+Box  2: _ _ _ 7 F Q q _	[   7FQq ]
+Box  3: _ _ n F … o _ _	[  nF…o  ]
+Box  4: _ 9 F Q q _ _ _	[ 9FQq   ]
+Box  5: t F … o – F Q q	[tF…o–FQq]
+Box  6: _ _ _ o F … o _	[   oF…o ]
+Box  7: _ _ ” F Q q _ _	[  ”FQq  ]
+Box  8: _ F F … o _ _ _	[ FF…o   ]
+Box  9: ’ F Q q N G … o	[’FQqNG…o]
+Box 10: _ _ _ ♀ F w q _	[   ♀Fwq ]
+Box 11: _ _ s R … o _ _	[  sR…o  ]
+Box 12: _ d F ? n _ _ _	[ dF?n   ]
+Box 13: ‘ F Q m _ _ _ _	[‘FQm    ]
+```
 
 ## Box name codes
 Below are the inputs to E-Sh4rk's CodeGenerator for each box name code along with the exact bytes that each code writes, and their starting offsets
@@ -232,8 +251,9 @@ MOVS r12, #0xA80 ; STRB ignores the upper 24 bits
 STRB r12, [r11, #0xA8]
 MOVS r12, #0xE2
 STRB r12, [r11, #0xAA]
-MOVS r12, #0xE8
-STRB r12, [r11, #0xAE]
+MOVS r12, #0xE800 ;
+ADC r12, r12, #0xB8 ; MOVS r12, #0xE8 if using mail word 4
+STRH r12, [r11, #0xAD] ; STRB r12, [r11, #0xAE] if using mail word 4
 MOVS r12, #0xE3
 STRB r12, [r11, #0xB2]
 MOVS r12, #0xC0
