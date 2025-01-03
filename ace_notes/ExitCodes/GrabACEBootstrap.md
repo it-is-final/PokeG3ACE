@@ -126,3 +126,4 @@ BIC r0, r0, #0xFF
 - E-Sh4rk for creating the CodeGenerator, the `Create Pokemon from nothing (with exit code bootstrap)` code, and the `Certificate Exit Bootstrap` code which the exit code bootstrap codes is based off
 - Sleipnir17 for creating the short exit code setup code which this code is derived from
 - RETIRE for providing better methods to construct the Thumb code
+- RationalPsycho on the Glitch City Research Institute for suggesting the use of mail to simplify the writing process
