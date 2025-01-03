@@ -2,29 +2,48 @@
 The purpose of this bootstrap is to allow more complex ACE payloads such as the hexwriter, and the hexecutor to be able to exit out of execution and hand back control to the game.
 
 ## Prequisites
-- Box 14 must have a `BX lr` opcode written to it, it should be named ` Foì`
-    - Refer to the 'Restoring `BX lr` box name' section of this guide to get this box name.
+- Prior knowledge on activating mail corruption
+- Prior knowledge on activating grab ACE
 
 ## How to create
-1. Write the following box names:
+1. Catch any Pokemon and name it `␣␣␣C`
+2. Place this Pokemon in Box 3, Slot 1
+3. Write a glitched mail with the following contents:
+     - MAIL WORD 1 → `GOTCHA`
+     - MAIL WORD 2 → `MARVEL SCALE`
+     - MAIL WORD 3 → `RUBY`
+     - MAIL WORD 4 → `I CHOOSE YOU`
+     - MAIL WORD 5 → `WANDERING`
+     - All other words should be left untouched
+4. After writing the glitched mail, the Pokemon should have turned into a bad EGG, move this to Box 10, Slot 2
+3. Write the following box names:
     ```
-    Box  1: 4 . U n s K … o	[4.UnsK…o]
-    Box  2: … … o v I ? n _	[……ovI?n ]
-    Box  3: ? ” U N ? n _ _	[?”UN?n  ]
-    Box  4: E _ F 9 q _ _ _	[E F9q   ]
-    Box  5: F 2 9 n 7 K … o	[F29n7K…o]
-    Box  6: H ? n V J ? n _	[H?nVJ?n ]
-    Box  7: ? ” … “ P m _ _	[?”…“Pm  ]
-    Box  8: E ’ “ P m _ _ _	[E’“Pm   ]
-    Box  9: _ F 9 q , F f l	[ F9q,Ffl]
-    Box 10: _ ? ” g K … o _	[ ?”gK…o ]
-    Box 11: ? ” m H ? n _ _	[?”mH?n  ]
-    Box 12: E i O ? n _ _ _	[EiO?n   ]
-    Box 13: N G ? n _ F 9 q	[NG?n F9q]
+    Box  1: C . U n n F … o	[C.UnnF…o]
+    Box  2: … l o 7 … P q _	[…lo7…Pq ]
+    Box  3: _ _ 9 F P q _ _	[  9FPq  ]
+    Box  4: _ ? … P q _ _ _	[ ?…Pq   ]
+    Box  5: z ♀ l o k … Q n	[z♀lok…Qn]
+    Box  6: ♀ Q n v F … o _	[♀QnvF…o ]
+    Box  7: _ _ – F P q _ _	[  –FPq  ]
+    Box  8: _ F G E n _ _ _	[ FGEn   ]
+    Box  9: _ … ? q _ _ _ _	[ …?q    ]
+    Box 10: _ _ _ _ _ _ … _	[      … ]
+    Box 11: _ _ _ _ _ … _ _	[     …  ]
+    Box 12: _ _ _ _ … _ _ _	[    …   ]
+    Box 13: _ _ _ … _ _ _ _	[   …    ]
+    Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
-2. Execute the code
-    - This code should create a ? in Box 10, Slot 19
-    - It should be named `Â  nÔ  v  `, and its OT should be blank
+4. Execute the code
+
+Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap.
+To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, the contents should be:
+ ```
+ ??? ???
+ ??? ???
+ WANDERING ???
+ _______ _______
+ _______
+ ```
 
 ## Testing the bootstrap
 1. Move the bootstrap to Box 13, Slot 9 or later
@@ -37,10 +56,6 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
     - `MOVS pc, #0x324` executes a `BX r0` instruction located somewhere in the BIOS
 3. Execute the code
 4. If it does not crash, that means the bootstrap is working
-
-> [!IMPORTANT]
-> This Pokemon does not have its hasSpecies flag set.
-> Do not use group selection on this Pokemon, it will disappear!
 
 ## How to utilise the bootstrap
 - Payloads that utilise the bootstrap must either never write to `r0`, or store the value of `r0` somewhere else (like another register) then write the value back to `r0` before exiting.
@@ -67,46 +82,44 @@ Box 14: _ F o _ _ _ _ _	[ Fo     ]
 More details on how it works can be found [here](FRLG_GrabACE_ShortExit.md).
 
 ## How it works
-The nickname is the first bit of actual code to be executed in the bootstrap, the bytes correspond to the following opcodes:
+Through both mail corruption and that box name code we wrote, we have corrupted the PID/OTID of the Pokemon to become the following opcodes:
 ```
-E28F0003 ADD r0, pc, #0x3 ; sets bit 0 to 1 which will make `BX r0` execute this address in Thumb mode
-EA00000F B #0x44
+E24F0001 SUB r0, pc, #0x1
+EA000011 B #0x4C
 ```
 
-This stores the address of the bootstrap's OT in `r0` then jumps to the next box slot.
-The OT contains Thumb code, the bytes of the OT correspond to the following opcodes:
+This stores the address of the bootstrap's nickname in `r0` then jumps to the next box slot.
+Since bit 0 of `r0` is set to 1, that means that when the `BX r0` instruction is executed, the code in the nickname is run in Thumb mode.
+From mail corruption, and the specific nickname we gave the Pokemon earlier, the nickname becomes the following Thumb opcodes:
 ```
-4040 EOR r0, r0 ; zeroes out r0, tells game to the end the task of swapping
-46F7 MOV pc, lr ; returns control to the game's code
+2000 MOV r0, #0x0 ; zeroes out r0, tells game to the end the task of swapping
+BD00 POP pc ; returns control to the game's code
 ```
 This does the routine of handing control back to the game in a safe manner.
 
 ## CodeGenerator input
 ```
-@@ filler1 = 0xB2AC00FF
-@@ filler2 = 0xB2ACFF00
-@@ filler3 = 0xBFFF0000
-@@ exit = "Bootstrapped"
 @@
-SBC r10, pc, #0x2940 ; r11 = Box 10, Slot 19 + 9
-MOVS r12, #0x39C00000
-MOVS r11, #0xFF ; species = 0xFF
-ADC r12, r12, #0xA8000003
-ADC r12, r12, #0xCF0000 ; E28F0003 ADD r0, pc, #0x3
-STR r12, [r10]! ; Store in characters 0-3 of nickname
-ADC r10, r10, #0x3 ; r11 = Box 10, Slot 19 + 12
-MOVS r12, #0x2A000000
-ADC r12, #0xF000000F
-ADC r12, #0xD0000000 ; EA00000F B #0xFF
-; EA00000F & 0xFFFF = 0xF = Beedrill
-STRH r11, [r10, #0x10] ; Store checksum
-STRH r11, [r10, #0x14] ; Store species
-STR r12, [r10]! ; Store in characters 4-7 of nickname
-LDRH r12, [r10], #0x8 ; r11 = Box 10, Slot 19 + 20
-; 4040 EOR r0, r0
-; 46F7 MOV pc, lr
-MOVS r12, #0x46F74040 ?
-STR r12, [r10]! ; Store in OT characters 0-3
+SBC r10, pc, #0x2F40 ; Box 10, Slot 2 - 0xA7
+MOVS r12, #0xE2
+MVN r11, #0xFF ; the least significant byte of r11 is 0
+STRB r11, [r10, #0xA8]
+STRB r12, [r10, #0xAA]
+STRB r11, [r10, #0xAC]
+MVN r11, #0xEE00000
+SBC r11, #0xDF
+SBC r11, #0xFF00000 ; r11 = E12FFF1E BX lr
+MOVS r12, #0xEA
+STRB r12, [r10, #0xAE]
+ADCS r12, pc, #0x30 ; r12 = address of box 14 name
+STR r11, [r12]! ; Store BX lr opcode in Box 14 name
+0
+0
+0
+0
+0
+0
+BIC r0, r0, #0xFF
 ```
 
 ## Acknowledgements
