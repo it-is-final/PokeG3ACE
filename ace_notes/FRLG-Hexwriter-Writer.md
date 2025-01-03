@@ -132,7 +132,7 @@ This is one of those efforts.
 The bad egg is now ready to be used as the hexwriter.
 Its hex data should be identical to the original version of the hexwriter (if you chose to enter the last code as is).
 Move this bad egg to Box 14, Slot 29 and execute ACE.
-Most likely whatever is written in the box names would be interpreted as a bad egg, however if you want certainty that the hexwriter is working normally, write the following names and execute ACE.
+Most likely whatever is written in the box names would be interpreted as a bad egg, however if you want certainty that the hexwriter is working properly, write the following names and execute ACE.
 ```
 Box  1: 00000000
 Box  2: 00000000
