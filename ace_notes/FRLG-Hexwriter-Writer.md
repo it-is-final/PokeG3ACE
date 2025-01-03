@@ -117,7 +117,7 @@ This is one of those efforts.
     Box  7: _ _ m H ? n _ _	[  mH?n  ]
     Box  8: _ N G ? n _ _ _	[ NG?n   ]
     Box  9: – R ! s z L l o	[–R!szLlo]
-    Box 10: L R n y F R n _	[LRnyFRn ] (change 'y' to 'k' for BX lr, see note below)
+    Box 10: L R n y F R n _	[LRnyFRn ] (change 'y' to 'k' for BX lr, see note below for the consequences)
     Box 11: _ _ – R ! s _ _	[  –R!s  ]
     Box 12: _ _ _ _ … _ _ _	[    …   ]
     Box 13: _ _ _ … _ _ _ _	[   …    ]
