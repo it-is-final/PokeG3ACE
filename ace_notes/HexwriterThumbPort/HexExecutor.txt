@@ -11,12 +11,13 @@ PUSH {r2}
 LDR r2, [pc, #nn]
 LDR r1, =0xF000000
 TST r2, r1 ; Check if Pokemon is marked
-BNE #0x4
-ADD r12, r7 ; Allows Thumb execution
+BNE #0x6
+MOV r1, #0x1
+ADD r12, r1 ; Allows Thumb execution
 POP {r2}
 MOV r1, pc
 SUB r1, #0x2E ; sets r1 to start of Hexecutor data
-ADD r1, r1 #0x0 ; Fix CPSR
+ADD r1, r1, #0x0 ; Fix CPSR
 BX r12
 ; 0x203FA00
 ; 0xF000000
@@ -28,22 +29,26 @@ BX r12
 ; - The PC is aligned, PC-relative operations will be like VBA emulation if in ARM mode
 ; - The CPSR is unset, just like regular ACE
 
-01 B4 02 A0
-01 30 0B 49
-8C 46 21 E0
-01 BC 04 B4
-00 E0 00 02
-00 4A 08 49
-03 E0 00 00
-6A A8 00 00
-67 84 0A 42
-00 D1 BC 44
-11-14: 00 00 00 00
+### CODE 1 ###
 
-04 BC 79 46
-2E 39 09 1C
-60 47 00 00
-00 FA 03 02
-00 00 00 0F
-00 00 00 40
-7-14: 00 00 00 00
+Box 1: 01 B4 02 A0
+Box 2: 01 30 0B 49
+Box 3: 8C 46 21 E0
+Box 4: 01 BC 04 B4
+Box 5: 00 E0 00 02
+Box 6: 00 4A 08 49
+Box 7: 03 E0 00 00
+Box 8: 5E 7B 00 00
+Box 9: 67 84 0A 42
+Box 10: 01 D1 01 31
+Box 11-14: 00 00 00 00
+
+### CODE 2 ###
+
+Box 1: 8C 44 04 BC
+Box 2: 79 46 2E 39
+Box 3: 09 1C 60 47
+Box 4: 00 FA 03 02
+Box 5: 00 00 00 0F
+Box 6: 00 00 00 40
+Box 7-14: 00 00 00 00
