@@ -1,7 +1,7 @@
 PUSH {r0}
 ADD r0, pc, #0x8
 ADD r0, #0x3
-LDR r1, [pc, #0x2C] ; Set writing destination
+LDR r1, [pc, #0x38] ; Set writing destination
 MOV r12, r1 ; r12 = 0x203FA00
 B #0x40
 
@@ -32,13 +32,13 @@ BX r12
 ### CODE 1 ###
 
 Box 1: 01 B4 02 A0
-Box 2: 01 30 0B 49
+Box 2: 01 30 0E 49
 Box 3: 8C 46 21 E0
 Box 4: 01 BC 04 B4
 Box 5: 00 E0 00 02
 Box 6: 00 4A 08 49
 Box 7: 03 E0 00 00
-Box 8: 5E 6B 00 00
+Box 8: 07 7C 00 00
 Box 9: 67 84 0A 42
 Box 10: 01 D1 01 21
 Box 11-14: 00 00 00 00
@@ -48,7 +48,8 @@ Box 11-14: 00 00 00 00
 Box 1: 8C 44 04 BC
 Box 2: 79 46 2E 39
 Box 3: 09 1C 60 47
-Box 4: 00 FA 03 02
+Box 4: D1 04 C0 15
 Box 5: 00 00 00 0F
 Box 6: 00 00 00 40
-Box 7-14: 00 00 00 00
+Box 7: 00 FA 03 02
+Box 8-14: 00 00 00 00
