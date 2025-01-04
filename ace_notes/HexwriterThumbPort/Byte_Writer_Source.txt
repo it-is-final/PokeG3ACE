@@ -1,5 +1,5 @@
-ADD r1, pc, #0x90
-LDR r2, [pc, #0x24]
+ADD r1, pc, #0x9C
+LDR r2, [pc, #0x14]
 EOR r5, r5 ; Zero out r5
 LDRB r3, [r1, r5] ; Load char from box name
 CMP r3, #0xFF ; Check for #0xFF
@@ -7,7 +7,35 @@ BEQ #0x6 ; Jump to ADD r5, #0x1
 STRB r3, [r2] ; Store char in party slot 3
 ADD r2, #0x1 ; Increment to next byte
 ADD r5, #0x1 ; Increment to next char
+BVC #0x2 ; FILLER
 CMP r5, #0x59
-BMI #-0xE ; Return to LDRB r3, [r1, r5]
-MOV pc, r0
+BMI #-0x10 ; Return to LDRB r3, [r1, r5]
+BX r0
 0x2024258 ; Address of party slot 3 in Japanese Emerald
+
+A127
+4A06
+406D
+5D4B
+2BFF
+D001
+7013
+3201
+3501
+D7FF
+2D59
+D4F6
+4700
+4258
+0202
+
+27 A1 06 4A   6D 40 4B 5D
+FF 2B 01 D0   13 70 01 32
+01 35 FF D7   59 2D F6 D4
+00 47 00 00   58 42 02 02
+00 00 00 00   00 00 00 00
+00 00 00 00   00 00 00 00
+00 00 00 00   00 00 00 00
+00 00 00 00   00 00 00 40
+00 00 00 00   00 00 00 00
+00 00 00 00   00 00 00 00
