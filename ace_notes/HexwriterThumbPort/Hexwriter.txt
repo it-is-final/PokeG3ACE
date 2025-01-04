@@ -1,0 +1,73 @@
+Hex data of the hexwriter
+
+7FB4
+104A
+22A0
+9445
+01D2
+0D49
+00E0
+6146
+0126
+FFD7
+3CC8
+855C
+FF2D
+0CD0
+B13D
+00D2
+1035
+00D5
+0C78
+01D4
+2401
+6419
+3342
+01D0
+0C70
+0131
+0133
+0132
+7E2A
+ECD4
+7FBC
+0047
+**** (5842 for Emerald, AC42 for FireRed/LeafGreen)
+0202
+0000
+0002
+
+Corresponding Thumb opcodes:
+
+PUSH {r0-r6} ; The first four opcodes are in a weird order due to encryption and substructure shenanigans
+LDR r2, [pc, #0x40] ; 0x2000000
+ADD r0, pc, #0x88
+CMP r12, r2
+BCS #0x6
+LDR r1, [pc, #0x34] ; Party slot 3
+B #0x4
+MOV r1, r12
+MOV r6, #0x1
+BVC #0x2 ; filler
+LDMIA r0!, {r2-r5}
+LDRB r5, [r0, r2]
+CMP r5, #0xFF
+BEQ r5, #0x1C ; jump to ADD r2, #0x1
+SUB r5, #0xB1
+BCS #0x4
+ADD r5, #0x10
+BPL #0x4
+LDRB r4, [r1]
+BMI #0x6
+LSL r4, r4, #0x4
+ADD r4, r4, r5 ; r4 = byte to be written
+TST r3, r6
+BEQ #0x6
+STRB r4, [r1]
+ADD r1, #0x1
+ADD r3, #0x1
+ADD r2, #0x1
+CMP r2, #0x7E
+BMI #-0x24 ; jump to LDRB r5, [r0, r2]
+POP {r0-r6}
+MOV pc, r0
