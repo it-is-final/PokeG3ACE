@@ -28,38 +28,31 @@ FILL 0x51, 3
 
 ## Exit Code Bootstrap
 ```
-Box  1: ル ば ぶ ジ け は き ッ	[ルばぶジけはきッ]
-Box  2: _ お N お G _ l _	[ おNおG l ]
-Box  3: い み N ミ か ぶ ぶ タ	[いみNミかぶぶタ]
-Box  4: み N タ く チ ミ び	[みNタくチミび]
-Box  5: い ぶ ィ ば み l	[いぶィばみl]
-Box  6: ア ふ ぃ ぅ コ く く _	[アふぃぅコくく ]
+Box  1: か ぶ く 0 ほ O ほ F	[かぶく0ほOほF]
+Box  2: む こ ふ え ぃ _ l	[むこふえぃ l]
+Box  3: か F ミ び _ _ _ _	[かFミび    ]
+Box  4: _ タ ぢ い い _ _ _	[ タぢいい   ]
+Box  5: い ぶ む l	[いぶむl]
+Box  6: _ あ い ゆ ヲ て く _	[ あいゆヲてく ]
 ```
 
 ```arm-asm
-MOV r1, pc
-LDR r0, [pc, #nn]
-SUB r1, r1, r0
-ADD r0, pc, #0xnn
-LDMIA r0!, {r0, r2}
-STMIA r1!, {r0, r2}
+LDR r0, [pc, #0x18]
+ADD r1, pc, #0x20
+LDMIA r1!, {r1-r4}
+STMIA r0!, {r1-r4}
+MOV r1, #0xFF
+MOV r2, r1
+ADD r0, #0x4
 B #0x4
-MOV r0, #0x2
-STRB r0, [r1, #0x3]
-LDR r0, [pc, #nn]
-STR r0, [r1, #0x4]
-MOV r0, #0xFF
-STR r0, [r1, #0xC]
-STR r0, [r1, #0x10]
+; FFFF ;
+STMIA r0!, {r1, r2}
 BX lr
-
-
 ```
 
 ```
-LDR r0, [pc, #0x8]
-MOV r8, r0
-B #0x20
+LDR r0, [pc, #0x8] ; r0 = 0x8137D25 , Pokedex diploma
+B #0x44
 ```
 
 ## Hexcode of Thumb/ARM Bootstrap
