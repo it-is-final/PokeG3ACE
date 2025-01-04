@@ -32,7 +32,7 @@ B13D
 ECD4
 7FBC
 0047
-**** (5842 for Emerald, AC42 for FireRed/LeafGreen)
+**42 (58 for Emerald, AC for FireRed/LeafGreen)
 0202
 0000
 0002
