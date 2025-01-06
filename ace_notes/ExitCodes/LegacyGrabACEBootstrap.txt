@@ -1,0 +1,55 @@
+### GLITCHY MAIL ###
+Mail word 2 → BYE-BYE (0820)
+Mail word 3 → AUNT (0A11)
+Should generate a bad EGG in Box 3, Slot 1. Move it to Box 10, Slot 2.
+The following code should turn it into the old exit bootstrap.
+
+Box  1: C . U n l F … o	[C.UnlF…o]
+Box  2: … l o 9 F P q _	[…lo9FPq ]
+Box  3: _ _ ? … P q _ _	[  ?…Pq  ]
+Box  4: _ v F … o _ _ _	[ vF…o   ]
+Box  5: z ♀ l o k … Q n	[z♀lok…Qn]
+Box  6: ♀ Q n – F P q _	[♀Qn–FPq ]
+Box  7: _ _ / F P q _ _	[  /FPq  ]
+Box  8: _ F G E n _ _ _	[ FGEn   ]
+Box  9: _ … ? q _ _ _ _	[ …?q    ]
+Box 10: _ _ _ _ _ _ … _	[      … ]
+Box 11: _ _ _ _ _ … _ _	[     …  ]
+Box 12: _ _ _ _ … _ _ _	[    …   ]
+Box 13: _ _ _ … _ _ _ _	[   …    ]
+Box 14: _ F o _ _ _ _ _	[ Fo     ]
+
+This turns the bad egg into the bootstrap and writes `BX lr` to Box 14.
+
+### HOW IT WORKS ###
+The PID/TID is composed of the following instructions
+```
+E0200000    EOR r0, r0, r0
+EA000011    B #0x4C
+```
+By zeroing out r0, we tell the game to finish the function of swapping Pokemon.
+However afterwards, your payload or box name codes must finish with the opcode `BX lr` (or equivalent) to actually exit properly.
+
+### CodeGenerator input ###
+@@
+SBC r10, pc, #0x2F40
+MOVS r12, #0xE0
+MVN r11, #0xFF
+STRB r12, [r10, #0xAA]
+STRB r11, [r10, #0xAC]
+MOVS r12, #0xEA
+MVN r11, #0xEE00000
+SBC r11, r11, #0xDF
+SBC r11, r11, #0xFF00000
+STRB r12, [r10, #0xAE]
+STRB r12, [r10, #0xBA]
+ADCS r12, pc, #0x30
+STR r11, [r12]!
+0
+0
+0
+0
+0
+0
+BIC r0, r0, #0xFF
+0
