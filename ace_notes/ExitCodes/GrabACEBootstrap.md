@@ -34,7 +34,7 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
     Box 13: _ _ _ … _ _ _ _	[   …    ]
     Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
-4. Execute the code
+4. Execute the code.
 
 Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap.
 To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, the contents should be:
@@ -53,7 +53,7 @@ To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, th
     - Mail word 3 → RUBY
     - Mail word 5 → WANDERING 
     - All other words should be left untouched
-2. A bad EGG should appear in Box 3, Slot 1, move it to Box 10, Slot 2 without using group selection
+2. A bad EGG should appear in Box 3, Slot 1, move it to Box 10, Slot 2 without using group selection.
 3. Write the following box names:
     ```
     Box  1: C . U n n F … o	[C.UnnF…o]
@@ -71,7 +71,8 @@ To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, th
     Box 13: _ _ _ … _ _ _ _	[   …    ]
     Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
-4. Execute the code
+4. Execute the code.
+
 Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap.
 To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, the contents should be:
 ```
