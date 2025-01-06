@@ -10,10 +10,10 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
 1. Catch any Pokemon and name it `␣␣␣C`
 2. Place this Pokemon in Box 3, Slot 1
 3. Write a glitched mail with the following contents:
-    - Mail word 1 → GOTCHA
+    - Mail word 1 → !! or I
     - Mail word 2 → MARVEL SCALE
-    - Mail word 3 → RUBY
-    - Mail word 4 → I CHOOSE YOU
+    - Mail word 3 → AUNT or COME ON or EARLIER
+    - Mail word 4 → ! or I CHOOSE YOU or DARK
     - Mail word 5 → WANDERING
     - All other words should be left untouched
 4. After writing the glitched mail, the Pokemon should have turned into a bad EGG, move this to Box 10, Slot 2
@@ -48,9 +48,9 @@ To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, th
 
 ### Method 2: Empty Slot
 1. Make sure Box 3, Slot 1 is empty, then write the following message to the glitched mail:
-    - Mail word 1 → GOTCHA
+    - Mail word 1 → !! or I
     - Mail word 2 → MARVEL SCALE
-    - Mail word 3 → RUBY
+    - Mail word 3 → AUNT or COME ON or EARLIER
     - Mail word 5 → WANDERING 
     - All other words should be left untouched
 2. A bad EGG should appear in Box 3, Slot 1, move it to Box 10, Slot 2 without using group selection.
@@ -142,10 +142,10 @@ The nickname `␣␣␣C` populates the partial nickname with a Thumb opcode `PO
 The mail words have the following indexes:
 |Word|Index (hex)|
 |-|-|
-|GOTCHA|201|
-|MARVEL SCALE|44F|
-|RUBY|211|
-|I CHOOSE YOU|200|
+|!! / I|**01|
+|MARVEL SCALE|044F|
+|AUNT / COME ON / EARLIER|**11|
+|! / I CHOOSE YOU / DARK|**00|
 |WANDERING|2000|
 
 'WANDERING' forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
