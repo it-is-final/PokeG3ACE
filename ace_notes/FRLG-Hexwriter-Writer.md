@@ -18,7 +18,7 @@ This is one of those efforts.
 ## Instructions
 > [!NOTE]
 > These mail words will be different if your game's language is not English, consult Bulbapedia for a translation.
-1. Activate the mail glitch
+1. Activate the mail glitch, make sure to keep Box 3, Slot 1 empty.
 2. Write the following message to the glitchy mail:
     - Mail word 1 → OMANYTE or DREAM EATER or GARDEVOIR
     - Mail word 2 → SNORLAX or SKY ATTACK or METANG
