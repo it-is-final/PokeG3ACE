@@ -29,13 +29,19 @@ If the game crashes, make sure that you have written the code correctly, and tha
 For more complex payloads the must exit before the box names, use the exit code bootstrap [here](GrabACEBootstrap.md).
 
 ## Explanation
+**TL;DR: This is a fancy way of writing the standard grab ACE exit in Box 14.**
+
 The Box 14 name consists of two opcodes, they are the aforementioned `BX lr` and `BIC r0, r0, #0xFF`.
 
 `BIC r0, r0, #0xFF` which is encoded as `✖_Fo` in the character set, with `✖` representing the string terminator.
-This clears the lower 8 bits of `r0` which tells the game that the current task (in this case shifting Pokemon) has ended, otherwise the game will be stuck waiting for the signal that the task ended, and control never returned back to the player.
-Older versions of this code did not use this opcode, instead using `ADCLT r12, r0, #0xFF` (`✖_?”`) which does nothing, and also forces code authors using the older setup to either append `MOVS r0, r0, #0x0` as the very last opcode before Box 14 or make users create a bootstrap that zeroes out `r0` to ensure that the game returns control back to the user properly.
+This clears the lower 8 bits of `r0` which tells the game that the current task (in this case shifting Pokemon) to finish the current task, avoiding a softlock.
+
+Older versions of this code did not use this opcode, instead using `ADCLT r12, r0, #0xFF` (`✖_?”`) which does nothing.
+This forces code authors using the older setup to either append `MOVS r0, r0, #0x0` as the very last opcode before Box 14 or make users create a bootstrap that zeroes out `r0` to ensure a proper exit.
 
 `BX lr` jumps the `pc` (program counter) back into the game's code handling the remainder of the shifting task.
+
+If parts of this exit sound familiar it is because this is just the standard exit, just rewritten slightly to fit in Box 14.
 
 ## Acknowledgements
 - E-Sh4rk for creating the [CodeGenerator](https://e-sh4rk.github.io/CodeGenerator)
