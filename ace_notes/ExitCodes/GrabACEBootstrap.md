@@ -135,6 +135,14 @@ BD00 POP pc ; returns control to the game's code
 ```
 This does the routine of handing control back to the game in a safe manner.
 
+Below are the instructions that make up the box 14 name with quick explanation in the code comments:
+```
+BIC r0, r0, #0xFF ; end task
+BX lr ; go back to game code
+```
+
+If you are wondering why are they so similiar its because they are both just the standard grab ACE exit, just rewritten slightly.
+
 ## Technical details
 ### Method 1
 The nickname `␣␣␣C` populates the partial nickname with a Thumb opcode `POP pc` (`BD00`), this reduces the need to write out the payload via grab ACE.
