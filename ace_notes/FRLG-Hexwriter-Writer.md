@@ -171,6 +171,24 @@ B11051E2
 10FF2FE1
 ```
 
+## Changing the exit of the hexwriter
+These are some short codes that change the exit opcode of the hexwriter.
+Note that the `BX r0` code requires an exit code bootstrap to be present in Box 14.
+
+**BX r0**
+```
+Box  1: B C U n m F l o	[BCUnmFlo]
+Box  2: H R o ‘ F Q q O	[HRo‘FQqO]
+Box  3: … o _ _ _ _ _ _	[…o      ]
+```
+
+**BX lr**
+```
+Box  1: B C U n m F l o	[BCUnmFlo]
+Box  2: _ F o ‘ F Q q a	[ Fo‘FQqa]
+Box  3: … o _ _ _ _ _ _	[…o      ]
+```
+
 ## Troubleshooting
 If the hexwriter is not working as expected, please refer to [this troubleshooting guide](https://e-sh4rk.github.io/ACE3/emerald/hex-writer/hex-writer/#appendix-in-case-of-failure) for the hexwriter.
 
