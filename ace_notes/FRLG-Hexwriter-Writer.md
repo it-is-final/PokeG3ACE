@@ -5,12 +5,11 @@ This is one of those efforts.
 
 ## Prequisites
 - Knowledge on how to perform mail corruption and grab ACE
-- `BIC r0, r0, #0xFF` and `BX lr` written to Box 14's name, the name should be ` Foì`
+- The box 14 exit code, the name of box 14 should be ` Foì`
     - This specific set-up does not require any bootstrap if you are writing box name codes only
-    - Instructions on how to write this can be found [here](ExitCodes/FRLG_GrabACE_ShortExit.md) or use the instructions for the exit code bootstrap
+    - Instructions on how to write this can be found [here](ExitCodes/FRLG_GrabACE_ShortExit.md)
 - The exit code bootstrap.
     - This is technically not necessary for the box name codes and can be created after the creation of the hexwriter
-    - The code also writes `BX lr` to Box 14 for convenience.
     - This will allow the hexwriter to exit properly via `r0`
     - Instructions on how to create this can be found [here](ExitCodes/GrabACEBootstrap.md)
 
@@ -173,12 +172,12 @@ B11051E2
 
 ## Changing the exit of the hexwriter
 These are some short codes that change the exit opcode of the hexwriter.
-Note that the `BX r0` code requires an exit code bootstrap to be present in Box 14.
+Place the hexwriter back in Box 10, Slot 19 and execute one of these codes depending on the desired exit.
 
 **BX r0**
 ```
-Box  1: B C U n m F l o	[BCUnmFlo]
-Box  2: H R o ‘ F Q q O	[HRo‘FQqO]
+Box  1: B C U n W T … o	[BCUnWT…o]
+Box  2: _ F o ‘ F Q q a	[ Fo‘FQqa]
 Box  3: … o _ _ _ _ _ _	[…o      ]
 ```
 

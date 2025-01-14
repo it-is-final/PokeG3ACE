@@ -2,51 +2,65 @@
 The purpose of this bootstrap is to allow more complex ACE payloads such as the hexwriter, and the hexecutor to be able to exit out of execution and hand back control to the game.
 
 ## Prequisites
-- Prior knowledge on activating mail corruption
 - Prior knowledge on activating grab ACE
+- A box 14 exit code, the setup can be found [here](FRLG_GrabACE_ShortExit.md)
 
 ## How to create
-### Method 1: Catch Random Pokemon
-1. Catch any Pokemon and name it `␣␣␣C`
-2. Place this Pokemon in Box 3, Slot 1
-3. Write a glitched mail with the following contents:
-    - Mail word 1 → !! or I
-    - Mail word 2 → MARVEL SCALE
-    - Mail word 3 → AUNT or COME ON or EARLIER
-    - Mail word 4 → ! or I CHOOSE YOU or DARK
-    - Mail word 5 → WANDERING
-    - All other words should be left untouched
-4. After writing the glitched mail, the Pokemon should have turned into a bad EGG, move this to Box 10, Slot 2
-3. Write the following box names:
+1. Make sure Box 10, Slot 19 is empty, then write the following box names:
     ```
-    Box  1: C . U n n F … o	[C.UnnF…o]
-    Box  2: … l o 7 … P q _	[…lo7…Pq ]
-    Box  3: _ _ 9 F P q _ _	[  9FPq  ]
-    Box  4: _ ? … P q _ _ _	[ ?…Pq   ]
-    Box  5: z ♀ l o k … Q n	[z♀lok…Qn]
-    Box  6: ♀ Q n v F … o _	[♀QnvF…o ]
-    Box  7: _ _ – F P q _ _	[  –FPq  ]
-    Box  8: _ F G E n _ _ _	[ FGEn   ]
-    Box  9: _ … ? q _ _ _ _	[ …?q    ]
-    Box 10: _ _ _ _ _ _ … _	[      … ]
-    Box 11: _ _ _ _ _ … _ _	[     …  ]
-    Box 12: _ _ _ _ … _ _ _	[    …   ]
-    Box 13: _ _ _ … _ _ _ _	[   …    ]
-    Box 14: _ F o _ _ _ _ _	[ Fo     ]
+    Box  1: 4 C U n n R … o	[4CUnnR…o]
+    Box  2: P R o / F Q m	[PRo/FQm]
+    Box  3: H ♂ s K … o	[H♂sK…o]
+    Box  4: / v I ? n	[/vI?n]
+    Box  5: U N ? n _ F ! q	[UN?n F!q]
+    Box  6: F … o F ‘ ! n	[F…oF‘!n]
+    Box  7: H ♂ v J ? n	[H♂vJ?n]
+    Box  8: / U T R o	[/UTRo]
+    Box  9: … G Q m ’ G Q m	[…GQm’GQm]
+    Box 10: ? … o _ F ! q	[?…o F!q]
+    Box 11: H ♂ … ” ! n	[H♂…”!n]
+    Box 12: / C J 9 n	[/CJ9n]
+    Box 13: k R R o _ F ! q	[kRRo F!q]
     ```
-4. Execute the code.
+2. Execute the code
 
-Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap.
-To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, the contents should be:
- ```
- ??? ???
- ??? ???
- WANDERING ???
- _______ _______
- _______
- ```
+A shiny female Beedrill should appear in either Box 14, Slot 28 or the first available slot of the crafting table, its name should be `Â␣␣nÔ␣␣v␣␣` and its OT should be `␣î␣C␣␣␣`.
+This is the exit code bootstrap, place it in Box 13, Slot 9 or later.
 
-### Method 2: Empty Slot
+## Alternative methods
+### Hexwriter
+This method is provided as a quick way to adapt a `BX lr` hexwriter setup to a `BX r0` setup.
+
+1. Write the following box names (ignore the spaces, they are provided for readability).
+    ```
+    Box  1: 00 00 00 00
+    Box  2: 00 00 00 00
+    Box  3: 03 00 8F E2
+    Box  4: 0F 00 00 EA
+    Box  5: 00 00 00 02
+    Box  6: 00 20 00 BD
+    Box  7: 00 00 00 00
+    Box  8: 0F 00 00 00
+    Box  9: 0F 00 00 00
+    Box 10: 00 00 00 00
+    Box 11: 00 00 00 00
+    Box 12: 00 00 00 00
+    Box 13: 00 00 00 00
+    Box 14: 00 00 00 00
+    ```
+2. Execute the hexwriter
+
+A shiny female Beedrill should appear in either Box 14, Slot 28 or the first available slot of the crafting table, its name should be `Â␣␣nÔ␣␣v␣␣` and its OT should be `␣î␣C␣␣␣`.
+This is the exit code bootstrap, place it in Box 13, Slot 9 or later.
+
+### Mail corruption
+> [!NOTE]
+> You do not need a box 14 exit code for this method.
+
+This method is mainly provided for archival purposes.
+It does not create the exact same bootstrap as the other two methods.
+Only use this if you want to use mail glitch and/or really do not want to write two box name codes.
+
 1. Make sure Box 3, Slot 1 is empty, then write the following message to the glitched mail:
     - Mail word 1 → !! or I
     - Mail word 2 → MARVEL SCALE
@@ -57,24 +71,24 @@ To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, th
 3. Write the following box names:
     ```
     Box  1: C . U n n F … o	[C.UnnF…o]
-    Box  2: … l o 7 … P q _	[…lo7…Pq ]
-    Box  3: _ _ 9 F P q _ _	[  9FPq  ]
-    Box  4: _ ? … P q _ _ _	[ ?…Pq   ]
-    Box  5: v F … o – F P q	[vF…o–FPq]
-    Box  6: _ _ _ / F P q _	[   /FPq ]
-    Box  7: _ _ C F … o _ _	[  CF…o  ]
-    Box  8: _ ” F P q _ _ _	[ ”FPq   ]
+    Box  2: … l o 7 … P q	[…lo7…Pq]
+    Box  3: H ♂ 9 F P q	[H♂9FPq]
+    Box  4: / ? … P q	[/?…Pq]
+    Box  5: v R … o C P P m	[vR…oCPPm]
+    Box  6: F … o / F P q	[F…o/FPq]
+    Box  7: H ♂ C R … o	[H♂CR…o]
+    Box  8: / “ Q P m	[/“QPm]
     Box  9: z ♀ l o k … Q n	[z♀lok…Qn]
-    Box 10: ♀ Q n F F U n _	[♀QnFFUn ]
-    Box 11: _ _ g … ? q _ _	[  g…?q  ]
-    Box 12: _ _ _ _ … _ _ _	[    …   ]
+    Box 10: ♀ Q n F F U n	[♀QnFFUn]
+    Box 11: H ♂ g … ? q	[H♂g…?q]
+    Box 12: / _ _ _ _	[/    ]
     Box 13: _ _ _ … _ _ _ _	[   …    ]
     Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
 4. Execute the code.
 
-Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap.
-To confirm, place the bad EGG in Box 3, Slot 1, and activate the mail glitch, the contents should be:
+Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap, place it in Box 13, Slot 9 or later.
+If you want to confirm it is indeed the bootstrap, place the bad EGG in Box 3, Slot 1, and activate mail corruption, the contents of the corrupted mail should be:
 ```
 ??? ???
 ??? ???
@@ -99,28 +113,28 @@ WANDERING ???
 - Payloads that utilise the bootstrap must either never write to `r0`, or store the value of `r0` somewhere else (like another register) then write the value back to `r0` before exiting.
 - Payloads should exit with `BX r0` which jumps to the code contained in the bootstrap which handles the exiting for you
 
-## Restoring `BX lr` box name
-In the rare case that you need to rename Box 14, here is the code to restore the `BX lr` name back:
-```
-Box  1: z ♀ l o k … Q n	[z♀lok…Qn]
-Box  2: ♀ Q n n U U n _	[♀QnnUUn ]
-Box  3: ? ” y ‘ ? q _ _	[?”y‘?q  ]
-Box  4: E _ _ _ _ _ _ _	[E       ]
-Box  5: _ _ _ … _ _ _ _	[   …    ]
-Box  6: _ ? ” _ _ _ _ _	[ ?”     ]
-Box  7: ? ” _ _ _ _ _ _	[?”      ]
-Box  8: E _ _ _ _ _ _ _	[E       ]
-Box  9: _ _ _ … _ _ _ _	[   …    ]
-Box 10: _ ? ” _ _ _ _ _	[ ?”     ]
-Box 11: ? ” _ _ _ _ _ _	[?”      ]
-Box 12: E _ _ _ _ _ _ _	[E       ]
-Box 13: _ _ _ … _ _ _ _	[   …    ]
-Box 14: _ F o _ _ _ _ _	[ Fo     ]
-```
-More details on how it works can be found [here](FRLG_GrabACE_ShortExit.md).
-
 ## How it works
-Through both mail corruption and that box name code we wrote, we have corrupted the PID/OTID of the Pokemon to become the following opcodes:
+
+The bootstrap sets `r0` to the address of the Thumb code contained within its data that contains the exit code instructions, that being an instruction that clears `r0` and an instruction that branches the `PC` back to the return address stored in `LR`.
+
+More details on how the grab ACE exit works can be found on the short exit guide’s [explanation](FRLG_GrabACE_ShortExit.md#explanation).
+
+The standard variant created by either the box names or the hexwriter is a shiny female Beedrill with name `Â␣␣nÔ␣␣v␣␣` and OT `␣î␣C␣␣␣`.
+
+The nickname is composed of the following ARM instructions:
+```
+E28F0003    ADD r0, pc, #3
+EA00000F    B #0x44
+```
+
+The OT is composed of the following Thumb instructions:
+```
+2000    MOV r0, #0 ; clears r0
+BD00    POP {pc} ; branches to related function to shifting Pokémon
+```
+
+### Mail corruption variant
+Through both mail corruption and that box name code we wrote, we have corrupted the PID/OTID of the empty slot to become the following opcodes:
 ```
 E24F0001 SUB r0, pc, #0x1
 EA000011 B #0x4C
@@ -128,89 +142,85 @@ EA000011 B #0x4C
 
 This stores the address of the bootstrap's nickname in `r0` then jumps to the next box slot.
 Since bit 0 of `r0` is set to 1, that means that when the `BX r0` instruction is executed, the code in the nickname is run in Thumb mode.
-From mail corruption, and the specific nickname we gave the Pokemon earlier, the nickname becomes the following Thumb opcodes:
+From mail corruption, and the box name code, the nickname becomes the following Thumb opcodes:
 ```
 2000 MOV r0, #0x0 ; zeroes out r0, tells game to the end the task of swapping
 BD00 POP pc ; returns control to the game's code
 ```
-This does the routine of handing control back to the game in a safe manner.
-
-Below are the instructions that make up the box 14 name with quick explanation in the code comments:
-```
-BIC r0, r0, #0xFF ; end task
-BX lr ; go back to game code
-```
-
-If you are wondering why are they so similiar its because they are both just the standard grab ACE exit, just rewritten slightly.
 
 ## Technical details
-### Method 1
-The nickname `␣␣␣C` populates the partial nickname with a Thumb opcode `POP pc` (`BD00`), this reduces the need to write out the payload via grab ACE.
+### Box name codes
+Below is the CodeGenerator input:
+```
+@@exit="Bootstrapped"
+@@filler1=0xB5C2C2FF
+@@filler2=0xB5C2FFFF
+@@filler3=0xBAFFFFFF
+@@filler4=0xFFFFFFFF
+@@
+SBC r11, pc, #0x2940
+MOVS r12, #0xE200
+BIC r12, #0xFF000 ; E200 & ~FF000 = 200
+STRH r12, [r11, #10] ; Store misc flags
+MOVS r12, #0xE28F0003 ? ; E28F0003 ADD r0, pc, #0x3
+STR r12, [r11]! ; Store in chars 0-3 of nickname
+MOVS r12, #0xFF
+ADC r11, #3 ; r11 = Box 10, Slot 19 + 12
+ADC r12, #0xEA000000 ; r12 = EA0000FF
+BIC r12, #0xCF0 ; r12 & ~BF0 = EA00000F B pc + #0x3C
+STRH r12, [r11, #16] ; Store species
+STRH r12, [r11, #20] ; Store checksum
+MOVS r10, #0xFF00 ; Temporarily store in r10
+STR r12, [r11]! ; Store in chars 4-7 of nickname
+ADC r11, #11 ; r11 = Box 10, Slot 19 + 23
+ADC r12, r10, #0xBD000000 ; move value of r10 to r12
+BIC r12, #0xDF00 ; r12 & ~DF00 = BD002000
+; 2000 MOV r0, #0
+; BD00 POP {pc}
+STR r12, [r11]! ; Store chars 0-3 of OT
+```
 
+### Mail corruption method
 The mail words have the following indexes:
 |Word|Index (hex)|
 |-|-|
 |!! / I|**01|
 |MARVEL SCALE|044F|
 |AUNT / COME ON / EARLIER|**11|
-|! / I CHOOSE YOU / DARK|**00|
 |WANDERING|2000|
 
 'WANDERING' forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
 The rest of the words will partially form each ARM opcode that constitutes the PID/OTID with their most significant bytes being overwritten by the box name code.
 
-Below is the input fed into E-Sh4rk's CodeGenerator to produce the box name code
-```
-@@
-SBC r10, pc, #0x2F40 ; Box 10, Slot 2 - 0xA7
-MOVS r12, #0xE2
-MVN r11, #0xFF ; the least significant byte of r11 is 0
-STRB r11, [r10, #0xA8]
-STRB r12, [r10, #0xAA]
-STRB r11, [r10, #0xAC]
-MVN r11, #0xEE00000
-SBC r11, #0xDF
-SBC r11, #0xFF00000 ; r11 = E12FFF1E BX lr
-MOVS r12, #0xEA
-STRB r12, [r10, #0xAE]
-ADCS r12, pc, #0x30 ; r12 = address of box 14 name
-STR r11, [r12]! ; Store BX lr opcode in Box 14 name
-0
-0
-0
-0
-0
-0
-BIC r0, r0, #0xFF
-```
-
-### Method 2
-The explanation for the mail words will not be repeated here as its largely the same as method 1, with only the omission of mail word 4 as the difference.
-This omission is because the empty box slot is all just 0 meaning we do not need to fill in a word for mail word 4 as that just places a 0, and its upper byte is getting overwritten anyway.
-
-The box name code writes `0xBD` to the upper byte of the second halfword of the nickname to account for the lack of a nickname to do that for us, and also manually set the hasSpecies flag for that slot since it started off as technically 'no Pokemon'.
-
 Below is the CodeGenerator input:
 ```
+@@filler1=0xB5C2C2FF
+@@filler2=0xB5C2FFFF
+@@filler3=0xBAFFFFFF
+@@filler4=0xFFFFFFFF
+; MAIL WORDS
+; 1 -> !! / I
+; 2 -> MARVEL SCALE
+; 3 -> AUNT / COME ON / EARLIER
+; 5 -> WANDERING
 @@
-SBC r10, pc, #0x2F40 ; Box 10, Slot 2 - 0xA7
+SBC r10, pc, #0x2F40
 MOVS r12, #0xE2
-MVN r11, #0xFF ; the least significant byte of r11 is 0
+MVN r11, #0xFF
 STRB r11, [r10, #0xA8]
 STRB r12, [r10, #0xAA]
 STRB r11, [r10, #0xAC]
-MOVS r12, #0xEA
-STRB r12, [r10, #0xAE]
-STRB r12, [r10, #0xBA] ; Sets hasSpecies
-MOVS r12, #0xBD
-STRB r12, [r10, #0xB2]
+MOVS r12, #0xEA00
+STRH r12, [r10, #0xAD]
+MOVS r12, #0xFF
+STRB r12, [r10, #0xBA]
+MOVS r12, #0xBD00
+STRH r12, [r10, #0xB1]
 MVN r11, #0xEE00000
 SBC r11, #0xDF
-SBC r11, #0xFF00000 ; r11 = E12FFF1E BX lr
-SBC r12, pc, #0xC0 ; r12 = address of box 14 name
-STR r11, [r12, #0xDB]! ; Store BX lr opcode in Box 14 name
-0
-0
+SBC r11, #0xFF00000
+SBC r12, pc, #0xC0
+STR r11, [r12, #0xDB]!
 BIC r0, r0, #0xFF
 ```
 
