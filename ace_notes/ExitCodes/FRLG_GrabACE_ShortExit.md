@@ -6,16 +6,16 @@ Codes making use of this version of the Box 14 setup do not require the use of a
     ```
     Box  1: z ♀ l o k … Q n	[z♀lok…Qn]
     Box  2: ♀ Q n n U U n _	[♀QnnUUn ]
-    Box  3: ? ” y ‘ ? q _ _	[?”y‘?q  ]
-    Box  4: E _ _ _ _ _ _ _	[E       ]
+    Box  3: _ _ y ‘ ? q _ _	[  y‘?q  ]
+    Box  4: _ _ _ _ … _ _ _	[    …   ]
     Box  5: _ _ _ … _ _ _ _	[   …    ]
-    Box  6: _ ? ” _ _ _ _ _	[ ?”     ]
-    Box  7: ? ” _ _ _ _ _ _	[?”      ]
-    Box  8: E _ _ _ _ _ _ _	[E       ]
+    Box  6: _ _ _ _ _ _ … _	[      … ]
+    Box  7: _ _ _ _ _ … _ _	[     …  ]
+    Box  8: _ _ _ _ … _ _ _	[    …   ]
     Box  9: _ _ _ … _ _ _ _	[   …    ]
-    Box 10: _ ? ” _ _ _ _ _	[ ?”     ]
-    Box 11: ? ” _ _ _ _ _ _	[?”      ]
-    Box 12: E _ _ _ _ _ _ _	[E       ]
+    Box 10: _ _ _ _ _ _ … _	[      … ]
+    Box 11: _ _ _ _ _ … _ _	[     …  ]
+    Box 12: _ _ _ _ … _ _ _	[    …   ]
     Box 13: _ _ _ … _ _ _ _	[   …    ]
     Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
@@ -23,25 +23,29 @@ Codes making use of this version of the Box 14 setup do not require the use of a
 
 Control of the game should have been returned to you after execution, and Box 14 should now be named ` Foì`.
 If control of the game has not been returned, that means you wrote the name of Box 14 wrong.
-If the game crashes, make sure that you have written the code correctly, and that there are no invisible Pokemon in the execution area of your grab ACE Pokemon.
+If the game crashes, make sure that you have written the code correctly, and that there are no invisible Pokémon in the execution area of your grab ACE Pokemon.
 
 ## Exiting for more complex payloads
 For more complex payloads the must exit before the box names, use the exit code bootstrap [here](GrabACEBootstrap.md).
 
 ## Explanation
-**TL;DR: This is a fancy way of writing the standard grab ACE exit in Box 14.**
+This code writes the grab ACE exit code to the name of box 14.
+The grab ACE exit is composed of two parts, one that clears at least part of `r0` and a branch to the return address stored `LR`.
 
-The Box 14 name consists of two opcodes, they are the aforementioned `BX lr` and `BIC r0, r0, #0xFF`.
+Shifting two box Pokemon is considered a task by the game which seems to store its status in `r0`.
+By clearing at least the least significant byte of `r0`, a task finish is signalled which will be handled when the processor branches to the return address.
+If a task is not signalled as ‘finished’, the code at the return address will eventually branch back into the glitched task callback, causing the game to appear softlocked.
+Signalling this will skip the branch back into the glitched callback and allow the shift Pokémon task to finish properly.
 
-`BIC r0, r0, #0xFF` which is encoded as `✖_Fo` in the character set, with `✖` representing the string terminator.
-This clears the lower 8 bits of `r0` which tells the game that the current task (in this case shifting Pokemon) to finish the current task, avoiding a softlock.
+The box 14 exit code is composed of these two instructions:
+- `BIC r0, r0, #0xFF` (`($FF)␣Fo`) clears part of `r0`, specifically its least significant byte.
+- `BX lr` (`ì`) performs a branch to the return address.
 
-Older versions of this code did not use this opcode, instead using `ADCLT r12, r0, #0xFF` (`✖_?”`) which does nothing.
-This forces code authors using the older setup to either append `MOVS r0, r0, #0x0` as the very last opcode before Box 14 or make users create a bootstrap that zeroes out `r0` to ensure a proper exit.
+As the essential parts of the exit code is present in box 14’s name, no extra bootstrap is needed for box name codes to exit properly.
 
-`BX lr` jumps the `pc` (program counter) back into the game's code handling the remainder of the shifting task.
+Older versions of the box 14 exit code used either another Pokémon with code that cleared `r0` or have box name codes place an instruction that cleared `r0` at the end, as `($FF)␣Fo` was not written in box 14 for those exit codes.
 
-If parts of this exit sound familiar it is because this is just the standard exit, just rewritten slightly to fit in Box 14.
+However more complex payloads that need to exit before the `PC` reaches the box names cannot use this box 14 exit code, thus requiring an exit code bootstrap of some kind to be able to exit properly.
 
 ## Acknowledgements
 - E-Sh4rk for creating the [CodeGenerator](https://e-sh4rk.github.io/CodeGenerator)
