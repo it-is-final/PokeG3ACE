@@ -1,6 +1,6 @@
-# Write `BX lr` to Box 14
-This code enables the usage of longer box name codes through writing opcode `BX lr` to Box 14.
-Codes making use of this version of the Box 14 setup do not require the use of an additional exit code bootstrap.
+# Grab ACE Box 14 Exit Code
+This exit code enables the usage of longer box name codes through the grab ACE exit code to box 14.
+Box name codes making use of this version of the Box 14 exit code do not require the use of an additional exit code bootstrap.
 
 1. Write the following box names:
     ```
@@ -21,9 +21,13 @@ Codes making use of this version of the Box 14 setup do not require the use of a
     ```
 2. Execute the code
 
-Control of the game should have been returned to you after execution, and Box 14 should now be named ` Foì`.
-If control of the game has not been returned, that means you wrote the name of Box 14 wrong.
-If the game crashes, make sure that you have written the code correctly, and that there are no invisible Pokémon in the execution area of your grab ACE Pokemon.
+Box 14 should be named `␣Foì`.
+
+If the game crashes or softlocks it may have been caused by the following:
+- Box names are written wrong
+- There are Pokémon (visible or not) after the entrypoint of your glitch Pokémon (for $351, it is Box 13, Slot 8)
+    - Move them to a box slot before the entrypoint
+    - For invisible Pokémon: use group selection or move them before the entrypoint if they do not disappear
 
 ## Exiting for more complex payloads
 For more complex payloads the must exit before the box names, use the exit code bootstrap [here](GrabACEBootstrap.md).
