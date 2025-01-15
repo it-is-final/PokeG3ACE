@@ -24,7 +24,7 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
     ```
 2. Execute the code
 
-A shiny female Beedrill should appear in either Box 14, Slot 28 or the first available slot of the crafting table, its name should be `Â␣␣nÔ␣␣v␣␣` and its OT should be `␣î␣C␣␣␣`.
+A shiny female Beedrill should appear in Box 10, Slot 19, its name should be `Â␣␣nÔ␣␣v␣␣` and its OT should be `␣î␣C␣␣␣`.
 This is the exit code bootstrap, place it in Box 13, Slot 9 or later.
 
 ## Alternative methods
