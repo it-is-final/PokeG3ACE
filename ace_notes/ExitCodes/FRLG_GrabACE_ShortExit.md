@@ -1,5 +1,5 @@
 # Grab ACE Box 14 Exit Code
-This exit code enables the usage of longer box name codes through the grab ACE exit code to box 14.
+This exit code enables the usage of longer box name codes through writing the grab ACE exit code to box 14.
 Box name codes making use of this version of the Box 14 exit code do not require the use of an additional exit code bootstrap.
 
 1. Write the following box names:
