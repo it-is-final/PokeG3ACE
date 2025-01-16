@@ -4,6 +4,10 @@ Recently there has been efforts to simplify the writing of the hexadecimal write
 This is one of those efforts.
 
 ## Prequisites
+- Game Boy Advance console or a highly-accurate emulator (like mGBA 0.9.0+)
+   - These codes do not work if the `PC` register is aligned, e.g. executing ACE through an inaccurate emulator
+   - If you are not using $351, check that the glitch Pokémon that you are using has bit 1 of its entrypoint set.
+     If it is not set, that means it executes with an aligned `PC` register and you must use a different Pokémon
 - Knowledge on how to perform mail corruption and grab ACE
 - The box 14 exit code, the name of box 14 should be ` Foì`
     - This specific set-up does not require any bootstrap if you are writing box name codes only
