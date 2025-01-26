@@ -9,17 +9,17 @@ The purpose of this bootstrap is to allow more complex ACE payloads such as the 
 1. Make sure Box 10, Slot 19 is empty, then write the following box names:
     ```
     Box  1: 4 C U n n R … o	[4CUnnR…o]
-    Box  2: P R o / F Q m	[PRo/FQm]
-    Box  3: H ♂ s K … o	[H♂sK…o]
-    Box  4: / v I ? n	[/vI?n]
+    Box  2: P R o / F Q m _	[PRo/FQm ]
+    Box  3: _ _ s K … o _ _	[  sK…o  ]
+    Box  4: _ v I ? n _ _ _	[ vI?n   ]
     Box  5: U N ? n _ F ! q	[UN?n F!q]
-    Box  6: F … o F ‘ ! n	[F…oF‘!n]
-    Box  7: H ♂ v J ? n	[H♂vJ?n]
-    Box  8: / U T R o	[/UTRo]
+    Box  6: F … o F ‘ ! n _	[F…oF‘!n ]
+    Box  7: _ _ v J ? n _ _	[  vJ?n  ]
+    Box  8: _ U T R o _ _ _	[ UTRo   ]
     Box  9: … G Q m ’ G Q m	[…GQm’GQm]
-    Box 10: ? … o _ F ! q	[?…o F!q]
-    Box 11: H ♂ … ” ! n	[H♂…”!n]
-    Box 12: / C J 9 n	[/CJ9n]
+    Box 10: ? … o _ F ! q _	[?…o F!q ]
+    Box 11: _ _ … ” ! n _ _	[  …”!n  ]
+    Box 12: _ C J 9 n _ _ _	[ CJ9n   ]
     Box 13: k R R o _ F ! q	[kRRo F!q]
     ```
 2. Execute the code
@@ -71,17 +71,17 @@ Only use this if you want to use mail glitch and/or really do not want to write 
 3. Write the following box names:
     ```
     Box  1: C . U n n F … o	[C.UnnF…o]
-    Box  2: … l o 7 … P q	[…lo7…Pq]
-    Box  3: H ♂ 9 F P q	[H♂9FPq]
-    Box  4: / ? … P q	[/?…Pq]
+    Box  2: … l o 7 … P q _	[…lo7…Pq ]
+    Box  3: _ _ 9 F P q _ _	[  9FPq  ]
+    Box  4: _ ? … P q _ _ _	[ ?…Pq   ]
     Box  5: v R … o C P P m	[vR…oCPPm]
-    Box  6: F … o / F P q	[F…o/FPq]
-    Box  7: H ♂ C R … o	[H♂CR…o]
-    Box  8: / “ Q P m	[/“QPm]
+    Box  6: F … o / F P q _	[F…o/FPq ]
+    Box  7: _ _ C R … o _ _	[  CR…o  ]
+    Box  8: _ “ Q P m _ _ _	[ “QPm   ]
     Box  9: z ♀ l o k … Q n	[z♀lok…Qn]
-    Box 10: ♀ Q n F F U n	[♀QnFFUn]
-    Box 11: H ♂ g … ? q	[H♂g…?q]
-    Box 12: / _ _ _ _	[/    ]
+    Box 10: ♀ Q n F F U n _	[♀QnFFUn ]
+    Box 11: _ _ g … ? q _ _	[  g…?q  ]
+    Box 12: _ _ _ _ … _ _ _	[    …   ]
     Box 13: _ _ _ … _ _ _ _	[   …    ]
     Box 14: _ F o _ _ _ _ _	[ Fo     ]
     ```
@@ -153,10 +153,6 @@ BD00 POP pc ; returns control to the game's code
 Below is the CodeGenerator input:
 ```
 @@exit="Bootstrapped"
-@@filler1=0xB5C2C2FF
-@@filler2=0xB5C2FFFF
-@@filler3=0xBAFFFFFF
-@@filler4=0xFFFFFFFF
 @@
 SBC r11, pc, #0x2940
 MOVS r12, #0xE200
@@ -194,10 +190,6 @@ The rest of the words will partially form each ARM opcode that constitutes the P
 
 Below is the CodeGenerator input:
 ```
-@@filler1=0xB5C2C2FF
-@@filler2=0xB5C2FFFF
-@@filler3=0xBAFFFFFF
-@@filler4=0xFFFFFFFF
 ; MAIL WORDS
 ; 1 -> !! / I
 ; 2 -> MARVEL SCALE
