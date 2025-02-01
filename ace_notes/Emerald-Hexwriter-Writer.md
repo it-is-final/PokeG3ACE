@@ -234,7 +234,7 @@ B1 10 51 E2
 ```
 
 #### Code 3
-Starting offset: 0x18 + 0xA7 = 0xC7
+Starting offset: 0x18 + 0xA7 = 0xBF
 ```
 @@ exit = "Bootstrapped"
 @@
