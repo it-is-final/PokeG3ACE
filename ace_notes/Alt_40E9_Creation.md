@@ -6,12 +6,12 @@ Make sure Box 10, Slot 19 is empty before executing this code.
 Write and execute the following code:
 ```
 Box  1: 5 C U n n R … o	[5CUnnR…o]
-Box  2: P R o / J Q m _	[PRo/JQm ] (change '/' to 'B' on inaccurate emulator)
-Box  3: _ _ N P … o _ _	[  NP…o  ]
-Box  4: _ C I w m _ _ _	[ CIwm   ] (change 'C' to 'E' on inaccurate emulator)
+Box  2: P R o 7 9 … o _	[PRo79…o ]
+Box  3: _ _ C 2 w m _ _	[  C2wm  ] (replace 'C' with 'E' if using inaccurate emulator)
+Box  4: _ B F w m _ _ _	[ BFwm   ]
 Box  5: F R l o v F ? n	[FRlovF?n]
-Box  6: _ _ _ ♀ G Q m _	[   ♀GQm ]
-Box  7: _ _ / G Q m _ _	[  /GQm  ]
+Box  6: _ _ _ / F Q m _	[   /FQm ]
+Box  7: _ _ D F Q m _ _	[  DFQm  ]
 Box  8: _ F G E n _ _ _	[ FGEn   ]
 Box  9: z … l o z ♀ Q o	[z…loz♀Qo]
 Box 10: ♀ Q n _ … ? q _	[♀Qn …?q ]
@@ -29,19 +29,19 @@ The following is the the hexadecimal of this box name code along with their corr
 ```
 E2CFBAD6    SBC R11, PC, #0x2980 ; R11 = Box 10, Slot 19 - 0x3* (7 on console and accurate emulators, 9 on inaccurate emulators)
 E3B0CCE2    MOVS R12, #0xE200
-E3CCCAFF    BIC R12, R12, #0xFF000 ; R12 = 200, hasSpecies set
-E1CBC4B*    STRH R12, [R11, #0x4*] ; * = A for console and accurate emulators, C for inaccurate emulators, store hasSpecies
+E3CCCAFF    BIC R12, R12, #0xFF000 ; R12 = 0x200, hasSpecies set
+E3B0AAA8    MOVS R10, #0xA8000 ; R10 & 0xFFFF = 0x8000, non-shiny SID for TID 0 and PID 0
 0000FF00    ; filler
-E3B0CAC8    MOVS R12, #0xC8000 ; SID to make 0x40E9 non-shiny
+E1EBA3B*    STRH R10, [R11, #0x3*]! ; * = D for console and accurate emulators, F for inaccurate emulators, store SID
 00FF0000    ; filler
-E1EBC3B*    STRH R12, [R11, #0x3*] ; * = D for console and accurate emulators, F for inaccurate emulators, store SID
+E1EBC0BC    STRH R12, [R11, #0xC]! ; store hasSpecies flag
 FF000000    ; filler
 E3E0CCC0    MVN R12, #0xC000 ; R12 = 0xFFFF3FFF
 E2ACC0EA    ADC R12, R12, #0xEA ; R12 = 0xFFFF40E9
 000000FF    ; filler
-E1CBC1B6    STRH R12, [R11, #0x16] ; Store checksum
+E1CBC0BA    STRH R12, [R11, #0xA] ; Store checksum
 0000FF00    ; filler
-E1CBC1BA    STRH R12, [R11, #0x1A] ; Store species
+E1CBC0BE    STRH R12, [R11, #0xE] ; Store species
 00FF0000    ; filler
 E2BFC1C0    ADCS R12, PC, #0x30 ; R12 = address of Box 14 name
 FF000000    ; filler
