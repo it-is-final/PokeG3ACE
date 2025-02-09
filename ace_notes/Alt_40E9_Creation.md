@@ -23,6 +23,7 @@ Box 14: _ _ _ _ _ _ … _	[      … ]
 
 A decamark should appear in Box 10, Slot 19.
 Its species name should be ` ÓàÉ LvLv`, and it should be female and level 100.
+After this, you should save and soft reset to facilitate the creation of the Thumb→ARM bootstrap.
 
 ## Technical details
 The following is the the hexadecimal of this box name code along with their corresponding instructions:
