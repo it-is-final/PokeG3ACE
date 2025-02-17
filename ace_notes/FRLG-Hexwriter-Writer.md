@@ -116,14 +116,14 @@ This is one of those efforts.
     Box  3: _ _ c R ? n _ _	[  cR?n  ]
     Box  4: _ 2 S ? n _ _ _	[ 2S?n   ]
     Box  5: H F ? n w F ! q	[HF?nwF!q]
-    Box  6: P … o O K ? n _	[P…oOK?n ]
-    Box  7: _ _ m H ? n _ _	[  mH?n  ]
-    Box  8: _ N G ? n _ _ _	[ NG?n   ]
-    Box  9: – R ! s z L l o	[–R!szLlo]
-    Box 10: L R n y F R n _	[LRnyFRn ] (change 'y' to 'k' for BX lr, see note below for the consequences)
-    Box 11: _ _ – R ! s _ _	[  –R!s  ]
-    Box 12: _ _ _ _ … _ _ _	[    …   ]
-    Box 13: _ _ _ … _ _ _ _	[   …    ]
+    Box  6: _ _ _ l K … o _	[   lK…o ]
+    Box  7: _ _ 1 L ? n _ _	[  1L?n  ]
+    Box  8: _ E O ? n _ _ _	[ EO?n   ]
+    Box  9: G S ? n – R ! s	[GS?n–R!s]
+    Box 10: _ _ _ m F l o _	[   mFlo ]
+    Box 11: _ _ y L R o _ _	[  yLRo  ]
+    Box 12: _ m H R o _ _ _	[ mHRo   ]
+    Box 13: _ H ? n – R ! s	[ H?n–R!s] ( for BX LR exit (mainly for old setups), change first ' ' to 'l' )
     ```
 
 > [!IMPORTANT]
@@ -386,14 +386,13 @@ Starting offset: 0x44 + 0xA7 = 0xEB
 SBC r11, pc, #0x2F40
 MOVS r12, #0xE359007E ?
 STR r12, [r11, #0xEB]!
-; MOVS r12, #0x424FF040 ?
-MOVS r12, #0xFF000
-ADC r12, #0x42400040 ?
+MOVS r12, #0x424FF040 ?
 0xE7ABCCAE
 ; MOVS r12, #0xE12FFF10 ?
-MVN r12, #0xEE00000
-SBC r12, #0xFF00000
-SBC r12, #0xED ; change to 0xDF for BX lr
+MVN r12, #0xE1
+BIC r12, r12, #0xED00000
+BIC r12, r12, #0x1000000E ; r12 = E12FFF10 BX r0
+ADC r12, r12, #0x0 ; #0xE for BX lr exit
 0xE7ABCCAE
 ```
 
