@@ -180,16 +180,16 @@ Place the hexwriter back in Box 10, Slot 19 and execute one of these codes depen
 
 **BX r0**
 ```
-Box  1: B C U n W T … o	[BCUnWT…o]
+Box  1: B C U n 0 T … o	[BCUn0T…o]
 Box  2: _ F o ‘ F Q q a	[ Fo‘FQqa]
-Box  3: … o _ _ _ _ _ _	[…o      ]
+Box  3: … o	[…o]
 ```
 
 **BX lr**
 ```
 Box  1: B C U n m F l o	[BCUnmFlo]
 Box  2: _ F o ‘ F Q q a	[ Fo‘FQqa]
-Box  3: … o _ _ _ _ _ _	[…o      ]
+Box  3: … o	[…o]
 ```
 
 ## Troubleshooting
