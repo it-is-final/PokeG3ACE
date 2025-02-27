@@ -1,0 +1,98 @@
+### Mail corruption
+!!! note
+    You do not need a box 14 exit code for this method.
+
+This method is mainly provided for archival purposes.
+It does not create the exact same bootstrap as the other two methods.
+Only use this if you want to use mail glitch and/or really do not want to write two box name codes.
+
+1. Make sure Box 3, Slot 1 is empty, then write the following message to the glitched mail:
+    - Mail word 1 → !! or I
+    - Mail word 2 → MARVEL SCALE
+    - Mail word 3 → AUNT or COME ON or EARLIER
+    - Mail word 5 → WANDERING 
+    - All other words should be left untouched
+2. A bad EGG should appear in Box 3, Slot 1, move it to Box 10, Slot 2 without using group selection.
+3. Write the following box names:
+    ```
+    Box  1: C . U n n F … o	[C.UnnF…o]
+    Box  2: … l o 7 … P q _	[…lo7…Pq ]
+    Box  3: _ _ 9 F P q _ _	[  9FPq  ]
+    Box  4: _ ? … P q _ _ _	[ ?…Pq   ]
+    Box  5: v R … o C P P m	[vR…oCPPm]
+    Box  6: F … o / F P q _	[F…o/FPq ]
+    Box  7: _ _ C R … o _ _	[  CR…o  ]
+    Box  8: _ “ Q P m _ _ _	[ “QPm   ]
+    Box  9: z ♀ l o k … Q n	[z♀lok…Qn]
+    Box 10: ♀ Q n F F U n _	[♀QnFFUn ]
+    Box 11: _ _ g … ? q _ _	[  g…?q  ]
+    Box 12: _ _ _ _ … _ _ _	[    …   ]
+    Box 13: _ _ _ … _ _ _ _	[   …    ]
+    Box 14: _ F o _ _ _ _ _	[ Fo     ]
+    ```
+4. Execute the code.
+
+Box 14 should now be named `␣Foì` and the bad egg in Box 10, Slot 2 is now the exit code bootstrap, place it in Box 13, Slot 9 or later.
+If you want to confirm it is indeed the bootstrap, place the bad EGG in Box 3, Slot 1, and activate mail corruption, the contents of the corrupted mail should be:
+```
+??? ???
+??? ???
+WANDERING ???
+??? ???
+???
+```
+
+### Mail corruption variant
+Through both mail corruption and that box name code we wrote, we have corrupted the PID/OTID of the empty slot to become the following opcodes:
+```
+E24F0001 SUB r0, pc, #0x1
+EA000011 B #0x4C
+```
+
+This stores the address of the bootstrap's nickname in `r0` then jumps to the next box slot.
+Since bit 0 of `r0` is set to 1, that means that when the `BX r0` instruction is executed, the code in the nickname is run in Thumb mode.
+From mail corruption, and the box name code, the nickname becomes the following Thumb opcodes:
+```
+2000 MOV r0, #0x0 ; zeroes out r0, tells game to the end the task of swapping
+BD00 POP pc ; returns control to the game's code
+```
+
+### Mail corruption method
+The mail words have the following indexes:
+|Word|Index (hex)|
+|-|-|
+|!! / I|**01|
+|MARVEL SCALE|044F|
+|AUNT / COME ON / EARLIER|**11|
+|WANDERING|2000|
+
+'WANDERING' forms the other half of our Thumb payload that `BX r0` will jump into, where its index perfectly matches with `MOV r0, #0x0`.
+The rest of the words will partially form each ARM opcode that constitutes the PID/OTID with their most significant bytes being overwritten by the box name code.
+
+Below is the CodeGenerator input:
+```
+; MAIL WORDS
+; 1 -> !! / I
+; 2 -> MARVEL SCALE
+; 3 -> AUNT / COME ON / EARLIER
+; 5 -> WANDERING
+@@
+SBC r10, pc, #0x2F40
+MOVS r12, #0xE2
+MVN r11, #0xFF
+STRB r11, [r10, #0xA8]
+STRB r12, [r10, #0xAA]
+STRB r11, [r10, #0xAC]
+MOVS r12, #0xEA00
+STRH r12, [r10, #0xAD]
+MOVS r12, #0xFF
+STRB r12, [r10, #0xBA]
+MOVS r12, #0xBD00
+STRH r12, [r10, #0xB1]
+MVN r11, #0xEE00000
+SBC r11, #0xDF
+SBC r11, #0xFF00000
+SBC r12, pc, #0xC0
+STR r11, [r12, #0xDB]!
+BIC r0, r0, #0xFF
+```
