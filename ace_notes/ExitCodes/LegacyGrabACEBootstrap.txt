@@ -14,7 +14,7 @@ ABRA IDOL
 ???
 ```
 
-An invisible bad egg should appear in Box 3, Slot 1, move it to Box 13, Slot 9.
+An invisible bad egg should appear in Box 3, Slot 1, move it to Box 13, Slot 9 or later.
 
 To use this bootstrap for your payloads, do not modify r0 and end the payload with `BX lr`.
 
