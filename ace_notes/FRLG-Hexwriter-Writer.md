@@ -130,7 +130,7 @@ This is one of those efforts.
 > If you chose to set the exit of the hexwriter to `BX lr` you need to know of the following:
 > - More advanced setups such as the HeXecutor do not work as is
 > - You need a different exit code bootstrap that directly clears at least the least significant byte of `r0` in its data placed before the hexwriter, otherwise the hexwriter will not exit properly.
->     - A guide to create such a Pokemon can be found [here](ExitCodes/LegacyGrabACEBootstrap.txt)
+>     - A guide to create such a Pokemon can be found [here](https://gist.github.com/it-is-final/61b991b8de8f571a4bbd13e4008343ce)
 
 The bad egg is now ready to be used as the hexwriter.
 Its hex data should be identical to the original version of the hexwriter (if you chose to enter the last code as is).
